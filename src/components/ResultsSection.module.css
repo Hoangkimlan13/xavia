@@ -1,0 +1,467 @@
+/* =====================================================
+   XAVIA SPA - BEFORE / AFTER RESULTS & CLIENT REVIEWS
+===================================================== */
+
+.resultsSection {
+  --primary: #064B38;
+  --deep: #0B2F27;
+  --accent: #C6A45B;
+  --accent-light: #edd18e;
+  --ivory: #F6F3EA;
+  --white: #FFFFFF;
+  --text: #24312C;
+  --muted: #5E6D66;
+
+  position: relative;
+  width: 100%;
+  background: var(--ivory);
+  color: var(--text);
+  padding: 28px 0 38px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* =====================================================
+   TOP BAR & FILTER TABS
+===================================================== */
+.topBar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.headingGroup {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  color: #9e8145;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.heading {
+  margin: 0;
+  color: var(--deep);
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(24px, 6.2vw, 40px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.heading em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+}
+
+.subHeading {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  max-width: 620px;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabBtn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 164, 91, 0.45);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--deep);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabBtn:hover {
+  border-color: var(--accent);
+  background: #ffffff;
+}
+
+.tabBtnActive {
+  border-color: var(--deep);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--deep) 100%);
+  color: var(--accent-light);
+  box-shadow: 0 6px 16px rgba(11, 47, 39, 0.16);
+}
+
+/* =====================================================
+   CARDS TRACK — MOBILE HORIZONTAL SNAP
+===================================================== */
+.cardsTrack {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(100% - 48px);
+  column-gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 16px;
+  scroll-behavior: smooth;
+  padding: 4px 16px 10px;
+  margin: 0 -16px;
+  scrollbar-width: none;
+}
+
+.cardsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCFBF7 100%);
+  border: 1px solid rgba(198, 164, 91, 0.36);
+  box-shadow: 0 10px 24px rgba(11, 47, 39, 0.08);
+}
+
+/* Thanh thông tin dịch vụ đã dùng ngay phía trên ảnh */
+.cardTopMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--deep);
+  color: #f8f5ee;
+}
+
+.serviceChip {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.durationText {
+  font-size: 10.5px;
+  color: rgba(248, 245, 238, 0.82);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   KHUNG SO SÁNH TRƯỚC / SAU CÓ THANH KÉO Ở GIỮA
+===================================================== */
+.compareFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #102b22;
+  cursor: ew-resize;
+}
+
+.compareImg {
+  object-fit: cover;
+  object-position: center 22%;
+  pointer-events: none;
+}
+
+.afterLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.tagBefore,
+.tagAfter {
+  position: absolute;
+  bottom: 10px;
+  z-index: 2;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.tagBefore {
+  left: 10px;
+  background: rgba(11, 47, 39, 0.78);
+  color: rgba(248, 245, 238, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.tagAfter {
+  right: 10px;
+  background: rgba(237, 209, 142, 0.92);
+  color: var(--deep);
+  border: 1px solid rgba(11, 47, 39, 0.2);
+}
+
+/* Thanh chia dọc + núm kéo */
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dividerLine {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(237, 209, 142, 0.45),
+    var(--accent-light) 25%,
+    var(--accent-light) 75%,
+    rgba(237, 209, 142, 0.45)
+  );
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.handleBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-light);
+  background: var(--deep);
+  color: var(--accent-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
+  pointer-events: auto;
+  touch-action: none;
+  cursor: ew-resize;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.handleBtn:hover,
+.handleBtnActive {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  color: var(--deep);
+}
+
+/* =====================================================
+   ĐÁNH GIÁ KHÁCH HÀNG & NÚT TƯ VẤN
+===================================================== */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 12px;
+  padding: 14px 16px 16px;
+}
+
+.quote {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.62;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(198, 164, 91, 0.24);
+}
+
+.clientBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+  color: var(--deep);
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.clientText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.clientName {
+  color: var(--deep);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.clientMeta {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.consultLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+  color: var(--deep);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.consultLink:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(198, 164, 91, 0.28);
+}
+
+/* =====================================================
+   DOTS MOBILE
+===================================================== */
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(11, 47, 39, 0.22);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.dotActive {
+  width: 16px;
+  background: var(--primary);
+}
+
+/* =====================================================
+   TABLET & DESKTOP
+===================================================== */
+@media (min-width: 768px) {
+  .resultsSection {
+    padding: 44px 0 56px;
+  }
+
+  .container {
+    padding: 0 28px;
+  }
+
+  .topBar {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .cardsTrack {
+    display: grid;
+    grid-auto-flow: unset;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dots {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .resultsSection {
+    padding: 56px 0 72px;
+  }
+
+  .container {
+    padding: 0 clamp(32px, 4vw, 48px);
+  }
+
+  .cardsTrack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+}

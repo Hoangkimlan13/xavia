@@ -1,0 +1,533 @@
+/* =====================================================
+   XAVIA SPA - FEATURED SERVICES SECTION (WAVE + MOTION)
+===================================================== */
+
+.servicesSection {
+  --gold: #C6A45B;
+  --gold-light: #edd18e;
+  --emerald-dark: #08231a;
+  --emerald-mid: #103d2e;
+  --next-bg: #F6F3EA; /* Đổi thành #08231a nếu phần dưới của bạn cũng là nền xanh đậm */
+
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(circle at 82% 24%, rgba(237, 209, 142, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 15% 75%, rgba(26, 104, 74, 0.32) 0%, transparent 55%),
+    linear-gradient(160deg, var(--emerald-mid) 0%, var(--emerald-dark) 100%);
+  color: #f8f5ee;
+  padding: 26px 0 58px;
+  overflow: hidden;
+}
+
+/* Vầng sáng lụa mềm chuyển động nhẹ ở đầu section */
+.silkAura {
+  position: absolute;
+  top: -60px;
+  right: -12%;
+  width: 340px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(237, 209, 142, 0.16) 0%,
+    rgba(198, 164, 91, 0.05) 45%,
+    transparent 72%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+  animation: silkFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes silkFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-26px, 14px, 0) scale(1.08);
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* =====================================================
+   TOP BAR: EYEBROW + HEADING + NÚT XEM TẤT CẢ
+===================================================== */
+.topBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.isVisible .topBar {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.headingGroup {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: rgba(237, 209, 142, 0.88);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: rgba(237, 209, 142, 0.6);
+  transition: width 0.5s ease;
+}
+
+.isVisible .eyebrowLine {
+  width: 24px;
+}
+
+.heading {
+  margin: 0;
+  color: #fcfaf4;
+  font-family: var(--font-heading), Georgia, serif;
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.heading em {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: #f4efe3;
+}
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 209, 142, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(248, 245, 238, 0.94);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.viewAllBtn:hover {
+  background: rgba(237, 209, 142, 0.18);
+  border-color: rgba(237, 209, 142, 0.72);
+  transform: translateY(-1px);
+}
+
+.viewAllIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 1px solid rgba(237, 209, 142, 0.48);
+  color: var(--gold-light);
+  font-size: 10.5px;
+  line-height: 1;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.viewAllBtn:hover .viewAllIcon {
+  background: var(--gold-light);
+  color: var(--emerald-dark);
+  transform: translateX(2px);
+}
+
+/* =====================================================
+   DANH SÁCH THẺ DỊCH VỤ — MOBILE HORIZONTAL SNAP + STAGGER
+===================================================== */
+.cardsTrack {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(100% - 52px);
+  column-gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 16px;
+  scroll-behavior: smooth;
+  padding: 4px 16px 10px;
+  margin: 0 -16px;
+  scrollbar-width: none;
+}
+
+.cardsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  scroll-snap-align: start;
+  background: #0d2b21;
+  border: 1px solid rgba(237, 209, 142, 0.3);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  transition-delay: calc(var(--stagger, 0) * 90ms);
+}
+
+.isVisible .card {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.card:hover {
+  transform: translate3d(0, -4px, 0) scale(1);
+  border-color: rgba(237, 209, 142, 0.72);
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.44);
+  transition-delay: 0s;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center 22%;
+  filter: contrast(1.04) saturate(1.05);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+/* Ánh vàng lướt nhẹ qua thẻ khi hover */
+.cardShimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(237, 209, 142, 0.14) 50%,
+    transparent 80%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .cardShimmer {
+  transform: translateX(110%);
+}
+
+.cardScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(6, 22, 16, 0.88) 0%,
+    rgba(6, 22, 16, 0.38) 46%,
+    rgba(6, 22, 16, 0.04) 100%
+  );
+}
+
+.cardOverlayContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.cardText {
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0 0 3px;
+  color: #fcfaf4;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 1.22;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardSubtitle {
+  margin: 0;
+  color: rgba(248, 245, 238, 0.78);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.35;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(237, 209, 142, 0.55);
+  background: rgba(8, 23, 17, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #f8f5ee;
+  font-size: 12px;
+  line-height: 1;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.card:hover .cardArrow {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border-color: var(--gold-light);
+  color: var(--emerald-dark);
+  transform: translateX(3px);
+}
+
+/* =====================================================
+   CHẤM CHỈ BÁO TRÊN MOBILE
+===================================================== */
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(248, 245, 238, 0.25);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.dotActive {
+  width: 14px;
+  background: var(--gold-light);
+}
+
+/* =====================================================
+   SÓNG GỢN / ELIP MỀM Ở CUỐI PHẦN DỊCH VỤ
+===================================================== */
+.bottomWave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 3;
+  width: 100%;
+  height: 30px;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.waveSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.waveFill {
+  fill: var(--next-bg);
+}
+
+.waveGoldLine {
+  fill: none;
+  stroke: rgba(237, 209, 142, 0.52);
+  stroke-width: 1.25;
+}
+
+/* =====================================================
+   TABLET / IPAD (>= 768px) — LƯỚI 2 CỘT
+===================================================== */
+@media (min-width: 768px) {
+  .servicesSection {
+    padding: 46px 0 78px;
+  }
+
+  .container {
+    padding: 0 28px;
+  }
+
+  .topBar {
+    margin-bottom: 22px;
+  }
+
+  .eyebrow {
+    font-size: 10.5px;
+  }
+
+  .viewAllBtn {
+    padding: 8px 10px 8px 16px;
+    font-size: 12px;
+  }
+
+  .viewAllIcon {
+    width: 21px;
+    height: 21px;
+  }
+
+  .cardsTrack {
+    display: grid;
+    grid-auto-flow: unset;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card {
+    border-radius: 20px;
+  }
+
+  .cardOverlayContent {
+    padding: 18px 20px;
+  }
+
+  .cardTitle {
+    font-size: 19px;
+  }
+
+  .cardSubtitle {
+    font-size: 12.5px;
+  }
+
+  .cardArrow {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .dots {
+    display: none;
+  }
+
+  .bottomWave {
+    height: 44px;
+  }
+}
+
+/* =====================================================
+   DESKTOP / LAPTOP (>= 1024px) — LƯỚI 4 CỘT
+===================================================== */
+@media (min-width: 1024px) {
+  .servicesSection {
+    padding: 58px 0 92px;
+  }
+
+  .container {
+    padding: 0 clamp(32px, 4vw, 48px);
+  }
+
+  .topBar {
+    margin-bottom: 26px;
+  }
+
+  .heading {
+    font-size: clamp(32px, 3vw, 42px);
+  }
+
+  .cardsTrack {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cardOverlayContent {
+    padding: 16px 18px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+  }
+
+  .cardSubtitle {
+    font-size: 12px;
+  }
+
+  .bottomWave {
+    height: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicesSection *,
+  .silkAura,
+  .image,
+  .cardShimmer,
+  .cardArrow,
+  .dot {
+    animation: none !important;
+    transition: none !important;
+  }
+}

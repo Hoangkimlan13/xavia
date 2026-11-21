@@ -1,0 +1,436 @@
+/* =====================================================
+   XAVIA SPA - COSMETICS SECTION (EMERALD + WAVE DEMO)
+===================================================== */
+
+.productsSection {
+  --gold: #C6A45B;
+  --gold-light: #edd18e;
+  --emerald-dark: #08231a;
+  --emerald-mid: #103d2e;
+  --cream-bg: #F6F3EA;
+  --next-bg: #F6F3EA; /* Đổi thành #08231a nếu phần ngay dưới dùng nền xanh đậm */
+
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(237, 209, 142, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 16% 78%, rgba(26, 104, 74, 0.32) 0%, transparent 55%),
+    linear-gradient(160deg, var(--emerald-mid) 0%, var(--emerald-dark) 100%);
+  color: #f8f5ee;
+  padding: 52px 0 64px;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* =====================================================
+   SÓNG / ELIP ĐẦU & CUỐI SECTION
+===================================================== */
+.topWave {
+  position: absolute;
+  top: -1;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  width: 100%;
+  height: 26px;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.bottomWave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  width: 100%;
+  height: 32px;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.waveSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.topWaveFill {
+  fill: var(--cream-bg);
+}
+
+.bottomWaveFill {
+  fill: var(--next-bg);
+}
+
+.waveGoldLine {
+  fill: none;
+  stroke: rgba(237, 209, 142, 0.48);
+  stroke-width: 1.25;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.topBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.headingGroup {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  color: rgba(237, 209, 142, 0.88);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: rgba(237, 209, 142, 0.6);
+}
+
+.heading {
+  margin: 0;
+  color: #fcfaf4;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(23px, 6.2vw, 40px);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.heading em {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: #f4efe3;
+}
+
+.subHeading {
+  margin: 6px 0 0;
+  color: rgba(248, 245, 238, 0.76);
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 209, 142, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(248, 245, 238, 0.94);
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.viewAllBtn:hover {
+  background: rgba(237, 209, 142, 0.18);
+  border-color: rgba(237, 209, 142, 0.72);
+  transform: translateY(-1px);
+}
+
+.viewAllIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 1px solid rgba(237, 209, 142, 0.48);
+  color: var(--gold-light);
+  font-size: 10.5px;
+  line-height: 1;
+}
+
+/* =====================================================
+   CARDS TRACK — MOBILE HORIZONTAL SNAP
+===================================================== */
+.cardsTrack {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(100% - 76px);
+  column-gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 16px;
+  scroll-behavior: smooth;
+  padding: 4px 16px 10px;
+  margin: 0 -16px;
+  scrollbar-width: none;
+}
+
+.cardsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #f6f2e8 100%);
+  border: 1px solid rgba(237, 209, 142, 0.42);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+  color: #24312c;
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-light);
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.45);
+}
+
+.imageLink {
+  display: block;
+  text-decoration: none;
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #0d2b21;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.imageGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 65%,
+    rgba(237, 209, 142, 0.14) 0%,
+    transparent 70%
+  );
+}
+
+.tagBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(168, 108, 36, 0.92), rgba(214, 154, 66, 0.92));
+  border: 1px solid rgba(255, 236, 186, 0.55);
+  color: #fffdf8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 12px;
+  padding: 13px 14px 15px;
+}
+
+.titleLink {
+  display: block;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.productName {
+  margin: 0 0 3px;
+  color: #0B2F27;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productSubtitle {
+  margin: 0;
+  color: #5E6D66;
+  font-size: 11.5px;
+  line-height: 1.42;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(198, 164, 91, 0.24);
+}
+
+.price {
+  color: #0B2F27;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.addBtn {
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 164, 91, 0.65);
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  color: #08231a;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.addBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(198, 164, 91, 0.32);
+}
+
+.addBtnAdded {
+  background: #0B2F27;
+  border-color: #0B2F27;
+  color: var(--gold-light);
+}
+
+/* =====================================================
+   DOTS MOBILE
+===================================================== */
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(248, 245, 238, 0.25);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.dotActive {
+  width: 16px;
+  background: var(--gold-light);
+}
+
+/* =====================================================
+   TABLET & DESKTOP
+===================================================== */
+@media (min-width: 768px) {
+  .productsSection {
+    padding: 68px 0 84px;
+  }
+
+  .topWave {
+    height: 38px;
+  }
+
+  .bottomWave {
+    height: 46px;
+  }
+
+  .container {
+    padding: 0 28px;
+  }
+
+  .topBar {
+    margin-bottom: 24px;
+  }
+
+  .heading em {
+    display: inline;
+  }
+
+  .cardsTrack {
+    display: grid;
+    grid-auto-flow: unset;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dots {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .productsSection {
+    padding: 80px 0 98px;
+  }
+
+  .topWave {
+    height: 48px;
+  }
+
+  .bottomWave {
+    height: 56px;
+  }
+
+  .container {
+    padding: 0 clamp(32px, 4vw, 48px);
+  }
+
+  .cardsTrack {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+}

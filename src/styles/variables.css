@@ -1,0 +1,32 @@
+
+:root {
+  /* Brand */
+  --color-primary: #064B38;
+  --color-deep: #0B2F27;
+  --color-accent: #C6A45B;
+
+  /* Background */
+  --color-ivory: #F6F3EA;
+  --color-white: #FFFFFF;
+
+  /* Text */
+  --color-text: #24312C;
+  --color-muted: #68766F;
+
+  /* UI */
+  --color-border: #DDE4DE;
+  --color-sage: #A9B9AD;
+  --color-sage-light: #E9EFEA;
+
+  /* Typography */
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Be Vietnam Pro", Arial, sans-serif;
+
+  /* Layout */
+  --container-width: 1200px;
+  --section-spacing: 100px;
+
+  /* Components */
+  --radius-card: 12px;
+  --radius-button: 6px;
+}
