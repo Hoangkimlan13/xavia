@@ -38,7 +38,7 @@ const DEFAULT_SERVICES = [
 export default function ServicesSection({
   services = DEFAULT_SERVICES,
   viewAllHref = "/services",
-  onSelectService,
+  onSelectService = undefined,
 }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);

@@ -47,7 +47,7 @@ export default function ProductsSection({
   products = DEFAULT_PRODUCTS,
   viewAllHref = "/products",
   onAddToCart,
-  onSelectProduct,
+  onSelectProduct = undefined,
 }) {
   const trackRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);

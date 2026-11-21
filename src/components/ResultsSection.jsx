@@ -194,7 +194,7 @@ function BeforeAfterSlider({
 export default function ResultsSection({
   items = DEFAULT_ITEMS,
   bookingHref = "/booking",
-  onSelectBooking,
+  onSelectBooking = undefined,
 }) {
   const [activeTab, setActiveTab] = useState("all");
   const [activeDot, setActiveDot] = useState(0);

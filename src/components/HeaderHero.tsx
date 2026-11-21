@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type {
+  CSSProperties,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import Image from "next/image";
 import styles from "./HeaderHero.module.css";
 
@@ -99,12 +103,19 @@ const MOBILE_SKIN_NEEDS = [
   },
 ];
 
+type HeaderHeroProps = {
+  cartCount?: number;
+  onOpenBooking?: () => void;
+  onOpenCart?: () => void;
+  onOpenMenu?: () => void;
+};
+
 export default function HeaderHero({
   cartCount = 0,
   onOpenBooking,
   onOpenCart,
   onOpenMenu,
-}) {
+}: HeaderHeroProps) {
   const [scrolled, setScrolled] = useState(false);
   const [internalMenuOpen, setInternalMenuOpen] = useState(false);
   
@@ -126,19 +137,20 @@ export default function HeaderHero({
       const activationLine = window.scrollY + 180;
 
       const sections = NAV_ITEMS
-        .filter((item) => item.href !== "#top")
-        .map((item) => {
-          const element = document.getElementById(item.href.slice(1));
+      .filter((item) => item.href !== "#top")
+      .flatMap((item) => {
+        const element = document.getElementById(item.href.slice(1));
 
-          if (!element) return null;
+        if (!element) return [];
 
-          return {
+        return [
+          {
             href: item.href,
             top: element.getBoundingClientRect().top + window.scrollY,
-          };
-        })
-        .filter(Boolean)
-        .sort((a, b) => a.top - b.top);
+          },
+        ];
+      })
+      .sort((a, b) => a.top - b.top);
 
       let currentSection = "#top";
 
@@ -156,7 +168,7 @@ export default function HeaderHero({
         document.documentElement.scrollHeight - 50;
 
       if (isAtBottom && sections.length > 0) {
-        currentSection = sections[sections.length - 1].href;
+        currentSection = sections[sections.length - 1]?.href ?? currentSection;
       }
 
       setActiveSection((prev) =>
@@ -185,7 +197,7 @@ export default function HeaderHero({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const onKeyDown = (e) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setInternalMenuOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
@@ -204,7 +216,7 @@ export default function HeaderHero({
     }
   };
 
-  const handleBookingClick = (e) => {
+  const handleBookingClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
     if (onOpenBooking) {
       e.preventDefault();
       setInternalMenuOpen(false);
@@ -346,7 +358,7 @@ export default function HeaderHero({
                 <a
                   key={item.href}
                   href={item.href}
-                  style={{ "--item-index": idx }}
+                  style={{ "--item-index": idx } as CSSProperties}
                   className={activeSection === item.href ? styles.drawerActive : undefined}
                   onClick={() => setInternalMenuOpen(false)}
                 >

@@ -26,7 +26,7 @@ const DEFAULT_IMAGES = [
 ];
 
 export default function AboutSection({
-  onOpenBooking,
+  onOpenBooking = undefined,
   moreHref = "#services",
   images = DEFAULT_IMAGES,
 }) {
