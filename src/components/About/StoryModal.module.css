@@ -1,0 +1,410 @@
+/* =====================================================
+   XAVIA SPA - EDITORIAL LOOKBOOK MODAL (RESPONSIVE & BALANCED)
+===================================================== */
+
+.backdrop {
+  --emerald: #0b3529;
+  --emerald-soft: #144b3b;
+  --ivory: #faf7f0;
+  --surface: #ffffff;
+  --gold: #b89246;
+  --gold-soft: #efe3c4;
+  --ink: #132a23;
+  --muted: #526860;
+
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(7, 24, 19, 0.56);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeInBg 0.25s ease forwards;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-height: 92dvh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 26px 26px 0 0;
+  overflow: hidden;
+  background: var(--ivory);
+  color: var(--ink);
+  box-shadow: 0 -18px 46px rgba(6, 22, 17, 0.35);
+  animation: slideUpSheet 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sheetDragging {
+  animation: none !important;
+  transition: none !important;
+}
+
+.grabberZone {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 4px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.grabberBar {
+  width: 38px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(19, 42, 35, 0.2);
+}
+
+.topBar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 20px 12px;
+  border-bottom: 1px solid rgba(11, 53, 41, 0.1);
+}
+
+.kicker {
+  margin: 0 0 3px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.brandHeading {
+  margin: 0;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(20px, 4vw, 25px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--emerald);
+}
+
+.brandHeading span {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.dismissBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(11, 53, 41, 0.16);
+  background: var(--surface);
+  color: var(--emerald);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.dismissBtn:hover {
+  background: var(--emerald);
+  color: var(--ivory);
+}
+
+.filterPills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(11, 53, 41, 0.04);
+  border-bottom: 1px solid rgba(11, 53, 41, 0.08);
+}
+
+.filterPills::-webkit-scrollbar {
+  display: none;
+}
+
+.filterPill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 53, 41, 0.16);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.filterPillActive {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: var(--ivory);
+  box-shadow: 0 4px 12px rgba(11, 53, 41, 0.2);
+}
+
+.lookbookBody {
+  padding: 16px 20px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: revealContent 0.28s ease;
+}
+
+.photoShowcase {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.photoStage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #e8e2d5;
+  border: 1px solid rgba(11, 53, 41, 0.12);
+  box-shadow: 0 10px 24px rgba(11, 53, 41, 0.1);
+}
+
+.photoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.thumbStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.thumbItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+
+.thumbItemActive {
+  border-color: var(--gold);
+  box-shadow: 0 4px 12px rgba(184, 146, 70, 0.22);
+}
+
+.thumbImgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8e2d5;
+}
+
+.thumbImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+.thumbLabel {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.detailsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoCard {
+  padding: 15px 16px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid rgba(11, 53, 41, 0.1);
+  box-shadow: 0 4px 16px rgba(11, 53, 41, 0.04);
+}
+
+.cardTitle {
+  margin: 0 0 4px;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(17px, 2.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--emerald);
+}
+
+.cardSubline {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.infoChip {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--ivory);
+  border: 1px solid var(--gold-soft);
+  color: var(--emerald);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.footerMotto {
+  padding: 11px 15px;
+  border-radius: 14px;
+  background: rgba(11, 53, 41, 0.06);
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-heading), Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--emerald);
+}
+
+.actionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
+  border-top: 1px solid rgba(11, 53, 41, 0.1);
+}
+
+.counterText {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.bookBtn {
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: none;
+  background: var(--emerald);
+  color: var(--ivory);
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(11, 53, 41, 0.24);
+  transition: transform 0.18s ease, background 0.2s ease;
+}
+
+.bookBtn:hover {
+  background: var(--emerald-soft);
+  transform: translateY(-1px);
+}
+
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpSheet {
+  from {
+    opacity: 0.65;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealContent {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* iPad & Desktop: bố cục 2 cột cân đối, vừa khung nhìn */
+@media (min-width: 768px) {
+  .backdrop {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .sheet {
+    max-width: 860px;
+    max-height: min(88vh, 680px);
+    border-radius: 24px;
+    border: 1px solid rgba(11, 53, 41, 0.12);
+    box-shadow: 0 24px 64px rgba(7, 24, 19, 0.28);
+  }
+
+  .grabberZone {
+    display: none;
+  }
+
+  .topBar {
+    padding: 18px 24px 12px;
+  }
+
+  .filterPills {
+    padding: 10px 24px;
+  }
+
+  .lookbookBody {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+    padding: 20px 24px 22px;
+  }
+
+  .detailsCol {
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .actionFooter {
+    padding: 14px 24px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .sheet,
+  .lookbookBody,
+  .bookBtn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
