@@ -19,68 +19,6 @@ const NAV_ITEMS = [
 
 const MOBILE_SKIN_NEEDS = [
   {
-    key: "rejuvenation",
-    label: "Trẻ hóa da",
-    href: "#services",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 2.5C8.5 7 6 9.8 6 13.2a6 6 0 0 0 12 0C18 9.8 15.5 7 12 2.5z" />
-        <path d="M10 15.5a2.5 2.5 0 0 0 2.5 1" />
-      </svg>
-    ),
-  },
-  {
-    key: "hydration",
-    label: "Cấp ẩm sâu",
-    href: "#services",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 3.5c-4.4 5.2-7 8.4-7 11.7a7 7 0 0 0 14 0c0-3.3-2.6-6.5-7-11.7z" />
-      </svg>
-    ),
-  },
-  {
-    key: "wrinkles",
-    label: "Cải thiện nám",
-    href: "#services",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 3l1.6 3.9L17.5 8.5l-3.9 1.6L12 14l-1.6-3.9L6.5 8.5l3.9-1.6L12 3z" />
-        <path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1z" />
-      </svg>
-    ),
-  },
-  {
     key: "recovery",
     label: "Phục hồi da",
     href: "#services",
@@ -96,8 +34,77 @@ const MOBILE_SKIN_NEEDS = [
         strokeLinejoin="round"
         aria-hidden="true"
       >
-        <path d="M12 3l7 3.2v5.6c0 4.9-3 9.1-7 10.7-4-1.6-7-5.8-7-10.7V6.2L12 3z" />
-        <path d="M9.5 12.2l1.8 1.8 3.4-3.6" />
+        <path d="M5 19c0-5.5 4-9.5 11-10 0 5.5-3.5 10-11 10z" />
+        <path d="M5 19c2.5-2.5 5.5-4.5 9-6" />
+        <path d="M16 5.5c1.5 0 2.5 1 2.5 2.5" />
+      </svg>
+    ),
+  },
+  {
+    key: "acne-care",
+    label: "Cải thiện mụn",
+    href: "#services",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3.5c-4.4 5.2-7 8.4-7 11.7a7 7 0 0 0 14 0c0-3.3-2.6-6.5-7-11.7z" />
+        <path d="M9.5 15.2a2.8 2.8 0 0 0 4.5 1.8" />
+        <circle cx="12" cy="11.5" r="0.9" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+  {
+    key: "lifting",
+    label: "Nâng cơ trẻ hóa",
+    href: "#services",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M7.5 5.5c2-1.5 5-1.5 7.5 0 2.2 1.4 3.5 3.8 3.5 6.5 0 4.2-2.7 7.5-6.5 8.5-3.8-1-6.5-4.3-6.5-8.5" />
+        <path d="M15.5 14.5c2.2-1 3.5-2.8 3.8-5" />
+        <path d="M18.5 4.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6.6-1.4z" />
+      </svg>
+    ),
+  },
+  {
+    key: "personalized",
+    label: "Phác đồ 1:1",
+    href: "#services",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="9" cy="8" r="3" />
+        <path d="M4.5 19c0-2.6 2-4.5 4.5-4.5s4.5 1.9 4.5 4.5" />
+        <path d="M15.5 9.5h4" />
+        <path d="M17.5 7.5v4" />
+        <path d="M15.5 14.5h4" />
       </svg>
     ),
   },
