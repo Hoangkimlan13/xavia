@@ -281,7 +281,7 @@ export default function ServiceDetailModal({
           <section className={styles.resultSection}>
             <div className={styles.resultHeader}>
               <h4 className={styles.sectionTitle}>
-                Hiệu quả sau quá trình (Kéo thanh để đối chiếu)
+                Hiệu quả sau quá trình
               </h4>
               <p className={styles.sectionIntro}>{service.outcomeSummary}</p>
             </div>
