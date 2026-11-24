@@ -193,7 +193,7 @@
   user-select: none;
   -webkit-user-select: none;
   background: #102b22;
-  cursor: ew-resize;
+  cursor: default;
 }
 
 .compareImg {
@@ -222,6 +222,7 @@
   pointer-events: none;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s ease;
 }
 
 .tagBefore {

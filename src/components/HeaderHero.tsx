@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type {
   CSSProperties,
   MouseEvent as ReactMouseEvent,
@@ -8,13 +8,19 @@ import type {
 import Image from "next/image";
 import styles from "./HeaderHero.module.css";
 
+const BOOKING_URL = "https://xaviaspa.salonhero.vn/dat-lich";
+const ZALO_URL = "https://zalo.me/0976719995";
+const PHONE_TEL = "tel:0976719995";
+const PHONE_DISPLAY = "0976 719 995";
+
 const NAV_ITEMS = [
   { label: "Trang chủ", href: "#top" },
   { label: "Giới thiệu", href: "#about" },
   { label: "Dịch vụ", href: "#services" },
-  { label: "Kết quả thực tế", href: "#results" },
+  { label: "Kết quả", href: "#results" },
   { label: "Sản phẩm", href: "#products" },
-  { label: "Liên hệ", href: "#contact" },
+  { label: "Địa chỉ", href: "#location" },
+  { label: "CEO", href: "#ceo" },
 ];
 
 const MOBILE_SKIN_NEEDS = [
@@ -112,6 +118,7 @@ const MOBILE_SKIN_NEEDS = [
 
 type HeaderHeroProps = {
   cartCount?: number;
+  bookingHref?: string;
   onOpenBooking?: () => void;
   onOpenCart?: () => void;
   onOpenMenu?: () => void;
@@ -119,45 +126,70 @@ type HeaderHeroProps = {
 
 export default function HeaderHero({
   cartCount = 0,
+  bookingHref = BOOKING_URL,
   onOpenBooking,
   onOpenCart,
   onOpenMenu,
 }: HeaderHeroProps) {
   const [scrolled, setScrolled] = useState(false);
   const [internalMenuOpen, setInternalMenuOpen] = useState(false);
-  
   const [activeSection, setActiveSection] = useState("#top");
+  const [floatingVisible, setFloatingVisible] = useState(true);
+
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    lastScrollY.current = window.scrollY;
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 24);
+
+      const delta = currentY - lastScrollY.current;
+      const isNearTop = currentY < 140;
+      const isNearBottom =
+        window.innerHeight + currentY >=
+        document.documentElement.scrollHeight - 80;
+
+      if (isNearTop || isNearBottom) {
+        setFloatingVisible(true);
+      } else if (delta > 10) {
+        // Đang cuộn xuống đọc nội dung -> ẩn nhẹ để không vướng mắt
+        setFloatingVisible(false);
+      } else if (delta < -6) {
+        // Đang cuộn ngược lên -> hiện lại mượt mà
+        setFloatingVisible(true);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // =====================================================
-  // LOGIC ĐÃ SỬA: TÍNH TOÁN VỊ TRÍ CUỘN (CHÍNH XÁC 100%)
+  // SCROLL SPY: TÍNH TOÁN VỊ TRÍ CUỘN
   // =====================================================
-  
   useEffect(() => {
     const handleScrollSpy = () => {
       const activationLine = window.scrollY + 180;
 
       const sections = NAV_ITEMS
-      .filter((item) => item.href !== "#top")
-      .flatMap((item) => {
-        const element = document.getElementById(item.href.slice(1));
+        .filter((item) => item.href !== "#top")
+        .flatMap((item) => {
+          const element = document.getElementById(item.href.slice(1));
+          if (!element) return [];
 
-        if (!element) return [];
-
-        return [
-          {
-            href: item.href,
-            top: element.getBoundingClientRect().top + window.scrollY,
-          },
-        ];
-      })
-      .sort((a, b) => a.top - b.top);
+          return [
+            {
+              href: item.href,
+              top: element.getBoundingClientRect().top + window.scrollY,
+            },
+          ];
+        })
+        .sort((a, b) => a.top - b.top);
 
       let currentSection = "#top";
 
@@ -169,7 +201,6 @@ export default function HeaderHero({
         }
       }
 
-      // Khi cuộn đến cuối trang, kích hoạt section cuối cùng
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 50;
@@ -184,11 +215,7 @@ export default function HeaderHero({
     };
 
     handleScrollSpy();
-
-    window.addEventListener("scroll", handleScrollSpy, {
-      passive: true,
-    });
-
+    window.addEventListener("scroll", handleScrollSpy, { passive: true });
     window.addEventListener("resize", handleScrollSpy);
 
     return () => {
@@ -196,7 +223,6 @@ export default function HeaderHero({
       window.removeEventListener("resize", handleScrollSpy);
     };
   }, []);
-
 
   useEffect(() => {
     if (!internalMenuOpen) return;
@@ -232,6 +258,8 @@ export default function HeaderHero({
       setInternalMenuOpen(false);
     }
   };
+
+  const isExternalBooking = /^https?:\/\//i.test(bookingHref);
 
   return (
     <div className={styles.wrapper} id="top">
@@ -296,7 +324,13 @@ export default function HeaderHero({
               Đặt lịch tư vấn <span aria-hidden="true">→</span>
             </button>
           ) : (
-            <a href="#booking" className={styles.ctaHeader}>
+            <a
+              href={bookingHref}
+              {...(isExternalBooking
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className={styles.ctaHeader}
+            >
               Đặt lịch tư vấn <span aria-hidden="true">→</span>
             </a>
           )}
@@ -369,10 +403,10 @@ export default function HeaderHero({
                   className={activeSection === item.href ? styles.drawerActive : undefined}
                   onClick={() => setInternalMenuOpen(false)}
                 >
-                  <span className={styles.drawerLinkText}>
-                    {item.label}
+                  <span className={styles.drawerLinkText}>{item.label}</span>
+                  <span className={styles.drawerArrow} aria-hidden="true">
+                    →
                   </span>
-                  <span className={styles.drawerArrow} aria-hidden="true">→</span>
                 </a>
               ))}
             </nav>
@@ -380,7 +414,10 @@ export default function HeaderHero({
             <div className={styles.drawerFooter}>
               <p className={styles.drawerTagline}>THE SCIENCE OF BEAUTY</p>
               <a
-                href="#booking"
+                href={bookingHref}
+                {...(isExternalBooking && !onOpenBooking
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className={styles.btnGold}
                 onClick={handleBookingClick}
               >
@@ -436,7 +473,13 @@ export default function HeaderHero({
                   Đặt lịch tư vấn <span aria-hidden="true">→</span>
                 </button>
               ) : (
-                <a href="#booking" className={styles.btnGold}>
+                <a
+                  href={bookingHref}
+                  {...(isExternalBooking
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className={styles.btnGold}
+                >
                   Đặt lịch tư vấn <span aria-hidden="true">→</span>
                 </a>
               )}
@@ -445,52 +488,62 @@ export default function HeaderHero({
         </div>
 
         {/* VÒNG BO CÁNH CUNG NỐI LIỀN HERO VỚI PHẦN NỘI DUNG DƯỚI */}
-<div className={styles.archDivider} aria-hidden="true">
-  <svg
-    viewBox="0 0 1440 110"
-    preserveAspectRatio="none"
-    className={styles.archSvg}
-  >
-    <defs>
-      <linearGradient id="xaviaArchGold" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#C6A45B" stopOpacity="0" />
-        <stop offset="25%" stopColor="#edd18e" stopOpacity="0.6" />
-        <stop offset="50%" stopColor="#fff4d4" stopOpacity="0.95" />
-        <stop offset="75%" stopColor="#edd18e" stopOpacity="0.6" />
-        <stop offset="100%" stopColor="#C6A45B" stopOpacity="0" />
-      </linearGradient>
-    </defs>
+        <div className={styles.archDivider} aria-hidden="true">
+          <svg
+            viewBox="0 0 1440 110"
+            preserveAspectRatio="none"
+            className={styles.archSvg}
+          >
+            <defs>
+              <linearGradient id="xaviaArchGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#C6A45B" stopOpacity="0" />
+                <stop offset="25%" stopColor="#edd18e" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="#fff4d4" stopOpacity="0.95" />
+                <stop offset="75%" stopColor="#edd18e" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#C6A45B" stopOpacity="0" />
+              </linearGradient>
+            </defs>
 
-    {/* Vùng nền dưới uốn cánh cung mềm */}
-    <path
-      d="M0,115 L0,72 Q720,-22 1440,72 L1440,115 Z"
-      className={styles.archFill}
-    />
+            <path
+              d="M0,115 L0,72 Q720,-22 1440,72 L1440,115 Z"
+              className={styles.archFill}
+            />
 
-    {/* Đường chỉ vàng ánh kim mảnh dọc mép cong */}
-    <path
-      d="M0,72 Q720,-22 1440,72"
-      className={styles.archGoldLine}
-    />
-  </svg>
-</div>
+            <path
+              d="M0,72 Q720,-22 1440,72"
+              className={styles.archGoldLine}
+            />
+          </svg>
+        </div>
 
-        {/* FLOATING CONTACTS */}
-        <aside className={styles.floatingContacts} aria-label="Liên hệ nhanh">
+        {/* FLOATING CONTACTS — ẨN KHI CUỘN XUỐNG, HIỆN MƯỢT KHI CUỘN LÊN */}
+        <aside
+          className={`${styles.floatingContacts} ${
+            floatingVisible && !internalMenuOpen
+              ? styles.floatingVisible
+              : styles.floatingHidden
+          }`}
+          aria-label="Liên hệ nhanh"
+        >
           <a
-            href="https://zalo.me"
+            href={ZALO_URL}
             target="_blank"
-            rel="noreferrer"
-            className={styles.zaloCircle}
-            aria-label="Chat Zalo"
+            rel="noopener noreferrer"
+            className={`${styles.floatingItem} ${styles.zaloCircle}`}
+            aria-label={`Chat Zalo ${PHONE_DISPLAY}`}
           >
-            Zalo
+            <span className={styles.floatingPulse} aria-hidden="true" />
+            <span className={styles.floatingTooltip}>Chat Zalo</span>
+            <span className={styles.zaloText}>Zalo</span>
           </a>
+
           <a
-            href="tel:0900000000"
-            className={styles.phoneCircle}
-            aria-label="Gọi điện thoại"
+            href={PHONE_TEL}
+            className={`${styles.floatingItem} ${styles.phoneCircle}`}
+            aria-label={`Gọi hotline ${PHONE_DISPLAY}`}
           >
+            <span className={styles.floatingPulse} aria-hidden="true" />
+            <span className={styles.floatingTooltip}>{PHONE_DISPLAY}</span>
             <svg
               viewBox="0 0 24 24"
               width="19"

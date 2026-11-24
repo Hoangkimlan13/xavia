@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ResultsSection.module.css";
 
+const BOOKING_URL = "https://xaviaspa.salonhero.vn/dat-lich";
+
 const FILTER_TABS = [
   { id: "all", label: "Tất cả" },
   { id: "rejuvenation", label: "Trẻ hóa & Nâng cơ" },
@@ -113,11 +115,6 @@ function BeforeAfterSlider({
     };
   }, [dragging, updateFromClientX]);
 
-  const handlePointerDown = (e) => {
-    setDragging(true);
-    updateFromClientX(e.clientX);
-  };
-
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
@@ -128,12 +125,20 @@ function BeforeAfterSlider({
     }
   };
 
+  // Kéo sang trái (splitPercent nhỏ) -> ẩn dần nhãn "Trước liệu trình"
+  const beforeOpacity = Math.max(
+    0,
+    Math.min(1, (splitPercent - 16) / 14)
+  );
+
+  // Kéo sang phải (splitPercent lớn) -> ẩn dần nhãn "Sau liệu trình"
+  const afterOpacity = Math.max(
+    0,
+    Math.min(1, (84 - splitPercent) / 14)
+  );
+
   return (
-    <div
-      ref={frameRef}
-      className={styles.compareFrame}
-      onPointerDown={handlePointerDown}
-    >
+    <div ref={frameRef} className={styles.compareFrame}>
       {/* Lớp nền: TRƯỚC LIỆU TRÌNH */}
       <Image
         src={beforeImage}
@@ -157,11 +162,30 @@ function BeforeAfterSlider({
         />
       </div>
 
-      {/* Nhãn trước / sau */}
-      <span className={styles.tagBefore}>{beforeLabel}</span>
-      <span className={styles.tagAfter}>{afterLabel}</span>
+      {/* Nhãn trước / sau — ẩn theo hướng kéo tay */}
+      <span
+        className={styles.tagBefore}
+        style={{
+          opacity: beforeOpacity,
+          visibility: beforeOpacity <= 0.02 ? "hidden" : "visible",
+          transform: `translateX(${(1 - beforeOpacity) * -10}px)`,
+        }}
+      >
+        {beforeLabel}
+      </span>
 
-      {/* Thanh chia & núm kéo ngang */}
+      <span
+        className={styles.tagAfter}
+        style={{
+          opacity: afterOpacity,
+          visibility: afterOpacity <= 0.02 ? "hidden" : "visible",
+          transform: `translateX(${(1 - afterOpacity) * 10}px)`,
+        }}
+      >
+        {afterLabel}
+      </span>
+
+      {/* Thanh chia & núm kéo ngang — chỉ bắt đầu kéo khi giữ trực tiếp vào núm kéo */}
       <div
         className={styles.divider}
         style={{ left: `${splitPercent}%` }}
@@ -179,6 +203,7 @@ function BeforeAfterSlider({
           onPointerDown={(e) => {
             e.stopPropagation();
             setDragging(true);
+            updateFromClientX(e.clientX);
           }}
           className={`${styles.handleBtn} ${
             dragging ? styles.handleBtnActive : ""
@@ -193,12 +218,14 @@ function BeforeAfterSlider({
 
 export default function ResultsSection({
   items = DEFAULT_ITEMS,
-  bookingHref = "/booking",
+  bookingHref = BOOKING_URL,
   onSelectBooking = undefined,
 }) {
   const [activeTab, setActiveTab] = useState("all");
   const [activeDot, setActiveDot] = useState(0);
   const trackRef = useRef(null);
+
+  const isExternalBooking = /^https?:\/\//i.test(bookingHref || "");
 
   const filteredItems =
     activeTab === "all"
@@ -338,7 +365,13 @@ export default function ResultsSection({
                       Tư vấn <span aria-hidden="true">→</span>
                     </button>
                   ) : (
-                    <a href={bookingHref} className={styles.consultLink}>
+                    <a
+                      href={bookingHref}
+                      {...(isExternalBooking
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className={styles.consultLink}
+                    >
                       Tư vấn <span aria-hidden="true">→</span>
                     </a>
                   )}

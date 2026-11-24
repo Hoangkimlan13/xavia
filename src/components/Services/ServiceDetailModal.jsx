@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ServiceDetailModal.module.css";
 
+const BOOKING_URL = "https://xaviaspa.salonhero.vn/dat-lich";
+
 const FALLBACK_RESULT_IMAGES = {
   "cham-soc-da-mun": {
     beforeImage: "/images/results/acne-before.webp",
@@ -27,6 +29,7 @@ export default function ServiceDetailModal({
   service,
   onClose,
   onBook,
+  bookingHref = BOOKING_URL,
 }) {
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -102,6 +105,8 @@ export default function ServiceDetailModal({
 
   if (!service) return null;
 
+  const isExternalBooking = /^https?:\/\//i.test(bookingHref || "");
+
   const handleClose = () => {
     setDragY(0);
     setIsDragging(false);
@@ -130,10 +135,15 @@ export default function ServiceDetailModal({
     touchStartY.current = null;
   };
 
-  const handleBookClick = () => {
+  const handleBookClick = (e) => {
     const selected = service;
-    handleClose();
-    if (onBook) onBook(selected);
+    if (onBook) {
+      e.preventDefault();
+      handleClose();
+      onBook(selected);
+    } else {
+      handleClose();
+    }
   };
 
   const fallbackPair =
@@ -417,13 +427,16 @@ export default function ServiceDetailModal({
             Xem dịch vụ khác
           </button>
 
-          <button
-            type="button"
-            className={styles.primaryBtn}
+          <a
+            href={bookingHref}
             onClick={handleBookClick}
+            {...(isExternalBooking && !onBook
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+            className={styles.primaryBtn}
           >
             Đặt lịch tư vấn {service.title} →
-          </button>
+          </a>
         </div>
       </div>
     </div>

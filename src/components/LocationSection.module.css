@@ -1,0 +1,410 @@
+/* =====================================================
+   XAVIA SPA - STORE LOCATION SECTION (COMPACT & CLEAR)
+===================================================== */
+
+.locationSection {
+  --emerald: #08231a;
+  --emerald-mid: #103d2e;
+  --ivory: #f6f3ea;
+  --surface: #ffffff;
+  --gold: #c6a45b;
+  --gold-light: #edd18e;
+  --ink: #132a23;
+  --muted: #556b63;
+  --pin-red: #e03b2e;
+
+  position: relative;
+  width: 100%;
+  background: var(--ivory);
+  color: var(--ink);
+  padding: 24px 0 36px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.header {
+  max-width: 640px;
+  margin-bottom: 14px;
+
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.isVisible .header {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+  color: #8b6822;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--gold);
+}
+
+.heading {
+  margin: 0 0 5px;
+  color: var(--emerald);
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(22px, 5.2vw, 36px);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.heading em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--emerald-mid);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.48;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.infoCard {
+  padding: 13px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid rgba(8, 35, 26, 0.11);
+  box-shadow: 0 6px 20px rgba(8, 35, 26, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topCompactRow {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 11px;
+  align-items: center;
+}
+
+.spaThumbWrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(198, 164, 91, 0.36);
+  background: #0d2b21;
+  flex-shrink: 0;
+}
+
+.spaThumb {
+  object-fit: cover;
+}
+
+.metaCompactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.infoBadge {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(16, 61, 46, 0.08);
+  color: var(--emerald-mid);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.addressText,
+.hoursText {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.38;
+  color: var(--emerald);
+}
+
+.landmarkText {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #8b6822;
+}
+
+.subNote {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.38;
+  color: var(--muted);
+}
+
+.phoneList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.phoneLink {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--emerald);
+  text-decoration: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ivory);
+  border: 1px solid rgba(8, 35, 26, 0.12);
+}
+
+.divider {
+  height: 1px;
+  background: rgba(8, 35, 26, 0.08);
+}
+
+.actionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 2px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 164, 91, 0.72);
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+  color: var(--emerald);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(198, 164, 91, 0.32);
+}
+
+.secondaryRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(8, 35, 26, 0.16);
+  background: var(--ivory);
+  color: var(--emerald);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background: rgba(16, 61, 46, 0.08);
+  border-color: var(--emerald-mid);
+}
+
+.mapCard {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(198, 164, 91, 0.36);
+  background: var(--emerald);
+  box-shadow: 0 10px 24px rgba(8, 35, 26, 0.1);
+}
+
+/* Nhãn chấm đỏ + tên spa nổi trên khung bản đồ */
+.pinCallout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--emerald);
+  color: #f8f5ee;
+  border-bottom: 1px solid rgba(237, 209, 142, 0.24);
+}
+
+.redDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pin-red);
+  box-shadow: 0 0 0 3px rgba(224, 59, 46, 0.28);
+  flex-shrink: 0;
+}
+
+.pinCalloutText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pinCalloutText strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pinCalloutText span {
+  font-size: 10.5px;
+  color: rgba(248, 245, 238, 0.8);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pinActionLink {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-light);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mapIframe {
+  width: 100%;
+  height: 185px;
+  border: 0;
+  display: block;
+}
+
+.mapPlaceholder {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #f8f5ee;
+}
+
+.mapDesc {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(248, 245, 238, 0.85);
+}
+
+.mapOpenBtn {
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(237, 209, 142, 0.5);
+  color: var(--gold-light);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .locationSection {
+    padding: 40px 0 56px;
+  }
+
+  .container {
+    padding: 0 28px;
+  }
+
+  .topCompactRow {
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .spaThumbWrap {
+    width: 116px;
+    height: 116px;
+  }
+
+  .metaCompactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .layout {
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .mapCard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mapIframe {
+    flex: 1;
+    min-height: 250px;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .locationSection {
+    padding: 52px 0 68px;
+  }
+
+  .container {
+    padding: 0 clamp(32px, 4vw, 48px);
+  }
+
+  .infoCard {
+    padding: 18px;
+  }
+}

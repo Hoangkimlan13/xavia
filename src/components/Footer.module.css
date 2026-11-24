@@ -1,0 +1,404 @@
+/* =====================================================
+   XAVIA SPA - HARMONIOUS EDITORIAL FOOTER
+===================================================== */
+
+.footer {
+  --gold: #c6a45b;
+  --gold-light: #edd396;
+  --ivory: #f8f5ec;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin-top: -1px;
+  padding: 30px 0 24px;
+  overflow: hidden;
+  color: var(--ivory);
+  background:
+    radial-gradient(ellipse 80% 42% at 50% 0%, rgba(237, 211, 150, 0.13), transparent 72%),
+    radial-gradient(circle at 12% 88%, rgba(198, 164, 91, 0.09), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(34, 108, 82, 0.22), transparent 46%),
+    linear-gradient(180deg, #072219 0%, #051812 56%, #03100c 100%);
+  border-top: 1px solid rgba(237, 211, 150, 0.26);
+}
+
+.topAccent {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 86%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(237, 211, 150, 0.75),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.glowLeft,
+.glowRight {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(115px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glowLeft {
+  bottom: -100px;
+  left: -110px;
+  background: rgba(237, 211, 150, 0.08);
+}
+
+.glowRight {
+  bottom: -100px;
+  right: -110px;
+  background: rgba(38, 118, 90, 0.2);
+}
+
+.container {
+  position: relative;
+  width: min(1160px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* BANNER LOGO + KÊNH THEO DÕI */
+.brandBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(237, 211, 150, 0.16);
+}
+
+.brandIdentity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 540px;
+}
+
+.logoFrame {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  padding: 5px;
+  background: linear-gradient(
+    145deg,
+    rgba(237, 211, 150, 0.26),
+    rgba(255, 255, 255, 0.04)
+  );
+  border: 1px solid rgba(237, 211, 150, 0.42);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 11px;
+}
+
+.brandName {
+  margin: 0;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #fffcf4;
+  line-height: 1.1;
+}
+
+.brandTag {
+  display: block;
+  margin-top: 3px;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold-light);
+}
+
+.brandBio {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(248, 245, 236, 0.74);
+}
+
+/* CỤM THEO DÕI FACEBOOK / ZALO / MAPS */
+.followBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.followTitle {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+}
+
+.followRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.followChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 211, 150, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fffcf4;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.followChip:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-light);
+  background: rgba(237, 211, 150, 0.14);
+  color: var(--gold-light);
+}
+
+.followIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+}
+
+/* LƯỚI 3 CỘT */
+.columnsGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1.15fr;
+  gap: 28px;
+  padding: 20px 0 18px;
+  border-bottom: 1px solid rgba(237, 211, 150, 0.14);
+}
+
+.colHeading {
+  margin: 0 0 10px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+}
+
+.quickGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 14px;
+}
+
+.serviceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(248, 245, 236, 0.78);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--gold-light);
+  transform: translateX(3px);
+}
+
+.contactLines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contactRow,
+.contactRowStatic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 0;
+  border-bottom: 1px dashed rgba(237, 211, 150, 0.14);
+  font-size: 11.5px;
+  text-decoration: none;
+  color: rgba(248, 245, 236, 0.72);
+}
+
+.contactRow:last-child,
+.contactRowStatic:last-child {
+  border-bottom: none;
+}
+
+.contactRow strong,
+.contactRowStatic strong {
+  color: #fffcf4;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.contactRow:hover strong {
+  color: var(--gold-light);
+}
+
+/* BOTTOM BAR */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px;
+  font-size: 10.5px;
+  color: rgba(248, 245, 236, 0.56);
+}
+
+/* TABLET */
+@media (max-width: 1023px) {
+  .brandBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .followBox {
+    align-items: flex-start;
+  }
+
+  .columnsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .footer {
+    padding: 22px 0 18px;
+  }
+
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  .brandBanner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding-bottom: 16px;
+  }
+
+  .brandIdentity {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logoFrame {
+    width: 54px;
+    height: 54px;
+  }
+
+  .brandName {
+    font-size: 19px;
+  }
+
+  .brandBio {
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .followBox {
+    align-items: center;
+    width: 100%;
+  }
+
+  .followRow {
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .followChip {
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+
+  .columnsGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px 0 12px;
+  }
+
+  .colHeading {
+    margin-bottom: 6px;
+    font-size: 9px;
+    text-align: center;
+  }
+
+  .quickGrid {
+    gap: 6px 12px;
+    justify-items: center;
+  }
+
+  .serviceList {
+    align-items: center;
+    gap: 5px;
+  }
+
+  .navLink {
+    font-size: 11.5px;
+  }
+
+  .contactRow,
+  .contactRowStatic {
+    padding: 5px 2px;
+    font-size: 11px;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 12px;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .dotSep {
+    display: none;
+  }
+}
