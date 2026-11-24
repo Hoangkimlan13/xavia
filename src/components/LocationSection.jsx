@@ -207,18 +207,30 @@ export default function LocationSection({
                 rel="noopener noreferrer"
                 className={styles.pinActionLink}
               >
-                Dẫn đường →
+                Mở Google Maps →
               </a>
             </div>
 
             {info.mapEmbedUrl ? (
-              <iframe
-                title={`Bản đồ ${info.brandName}`}
-                src={info.mapEmbedUrl}
-                className={styles.mapIframe}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+              <div className={styles.mapFrameWrap}>
+                <iframe
+                  title={`Bản đồ ${info.brandName}`}
+                  src={info.mapEmbedUrl}
+                  className={styles.mapIframe}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <a
+                  href={info.mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.mapDirectBar}
+                >
+                  <span>Chạm để mở trên Google Maps</span>
+                  <strong>Xavia Spa →</strong>
+                </a>
+              </div>
             ) : (
               <div className={styles.mapPlaceholder}>
                 <p className={styles.mapDesc}>{info.address}</p>

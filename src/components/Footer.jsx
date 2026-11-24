@@ -168,7 +168,7 @@ export default function Footer() {
                 className={styles.contactRow}
               >
                 <span>Zalo</span>
-                <strong>XAVIA SPA ↗</strong>
+                <strong>XAVIA SPA →</strong>
               </a>
               <a
                 href={MAPS_URL}
@@ -177,7 +177,7 @@ export default function Footer() {
                 className={styles.contactRow}
               >
                 <span>Bản đồ</span>
-                <strong>Xem vị trí ↗</strong>
+                <strong>Xem vị trí →</strong>
               </a>
               <div className={styles.contactRowStatic}>
                 <span>Giờ mở cửa</span>
@@ -189,7 +189,10 @@ export default function Footer() {
 
         {/* DÒNG BẢN QUYỀN */}
         <div className={styles.bottomBar}>
-          <span>© {year} XAVIA SPA</span>
+          <span>
+            © {year} XAVIA SPA -{" "}
+            <strong className={styles.creditName}>Design by Kim Lân</strong>
+          </span>
           <span className={styles.dotSep} aria-hidden="true">
             ·
           </span>
