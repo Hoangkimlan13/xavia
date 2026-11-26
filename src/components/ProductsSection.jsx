@@ -3,9 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
 import styles from "./ProductsSection.module.css";
 import ProductDetailModal from "./Products/ProductDetailModal";
 import { DEFAULT_PRODUCTS } from "@/data/products";
+
 
 export default function ProductsSection({
   products = DEFAULT_PRODUCTS,
@@ -18,6 +21,7 @@ export default function ProductsSection({
   const [activeDot, setActiveDot] = useState(0);
   const [addedId, setAddedId] = useState(null);
   const [modalProduct, setModalProduct] = useState(null);
+  const { toast, showToast } = useToast();
 
   const productList = useMemo(() => {
     const base = products && products.length > 0 ? products : DEFAULT_PRODUCTS;
@@ -105,17 +109,29 @@ export default function ProductsSection({
     e.preventDefault();
     e.stopPropagation();
 
-
     try {
       await navigator.clipboard.writeText(
         getZaloConsultMessage(product)
       );
+
+      showToast(
+        "Đã sao chép nội dung tư vấn – chỉ cần Dán vào Zalo",
+        1800,
+        "success"
+      );
     } catch (error) {
       console.warn("Không thể tự động sao chép nội dung:", error);
+
+      showToast(
+        "Không thể sao chép nội dung. Bạn vui lòng kiểm tra quyền clipboard.",
+        1800,
+        "error"
+      );
     }
 
-    // Mở Zalo trong chính tab hiện tại, tránh tạo nhiều tab
-    window.location.assign("https://zalo.me/0976719995");
+    window.setTimeout(() => {
+      window.location.assign("https://zalo.me/0976719995");
+    }, 1800);
   };
 
 
@@ -313,6 +329,8 @@ export default function ProductsSection({
           />
         </svg>
       </div>
+
+      <Toast toast={toast} />
 
       <ProductDetailModal
         product={modalProduct}

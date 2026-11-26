@@ -4,6 +4,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ProductDetailModal.module.css";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
 
 const getZaloConsultMessage = (product) => {
   return (
@@ -13,6 +15,7 @@ const getZaloConsultMessage = (product) => {
 };
 
 export default function ProductDetailModal({ product, onClose }) {
+  const { toast, showToast } = useToast();
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -257,19 +260,34 @@ export default function ProductDetailModal({ product, onClose }) {
     e.preventDefault();
     e.stopPropagation();
 
-    const message = getZaloConsultMessage(product);
-
-    // Sao chép nội dung trước khi chuyển sang Zalo
     try {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(
+        getZaloConsultMessage(product)
+      );
+
+      showToast(
+        "Đã sao chép nội dung tư vấn – chỉ cần Dán vào Zalo",
+        1800,
+        "success"
+      );
     } catch (error) {
       console.warn("Không thể sao chép nội dung tư vấn:", error);
+
+      showToast(
+        "Không thể sao chép nội dung. Vui lòng kiểm tra quyền clipboard.",
+        1800,
+        "error"
+      );
     }
 
-    window.location.assign("https://zalo.me/0976719995");
+    window.setTimeout(() => {
+      window.location.assign("https://zalo.me/0976719995");
+    }, 1800);
   };
 
   return (
+     <>
+    <Toast toast={toast} />
     <div
       className={styles.backdrop}
       role="dialog"
@@ -647,6 +665,7 @@ export default function ProductDetailModal({ product, onClose }) {
           </p>
         </div>
       )}
-    </div>
+        </div>
+  </>
   );
 }
