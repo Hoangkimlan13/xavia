@@ -342,13 +342,22 @@ export default function ProductsPage({ onAddToCart }) {
                     ? item.skinTypes.slice(0, 2)
                     : [];
 
-                  const zaloMessage =
-                    `Xin chào XAVIA SPA! Tôi muốn được tư vấn về sản phẩm ${item.name}. ` +
-                    "Nhờ chuyên viên hỗ trợ tư vấn giúp tôi. Cảm ơn!";
+                  const handleZaloConsult = async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                  const zaloUrl = `https://zalo.me/0976719995?text=${encodeURIComponent(
-                    zaloMessage
-                  )}`;
+                    const message =
+                        `Xin chào XAVIA SPA! Tôi muốn được tư vấn về sản phẩm ${item.name}. ` +
+                        "Nhờ chuyên viên hỗ trợ tư vấn giúp tôi. Cảm ơn!";
+
+                    try {
+                        await navigator.clipboard.writeText(message);
+                    } catch (error) {
+                        console.warn("Không thể tự động sao chép nội dung:", error);
+                    }
+
+                    window.location.assign("https://zalo.me/0976719995");
+                    };
 
                   return (
                     <article key={item.id} className={styles.card}>
@@ -417,12 +426,10 @@ export default function ProductsPage({ onAddToCart }) {
 
                         <div className={styles.cardFooter}>
                           <a
-                            href={zaloUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href="https://zalo.me/0976719995"
                             className={styles.consultBadge}
                             aria-label={`Tư vấn ngay về ${item.name} qua Zalo`}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={handleZaloConsult}
                           >
                             <svg
                               className={styles.messageIcon}

@@ -93,13 +93,31 @@ export default function ProductsSection({
     }
   };
 
-  const getZaloConsultUrl = (product) => {
-    const message =
+  
+  const getZaloConsultMessage = (product) => {
+    return (
       `Xin chào XAVIA SPA! Tôi muốn được tư vấn về sản phẩm ${product.name}. ` +
-      "Nhờ chuyên viên hỗ trợ tư vấn giúp tôi. Cảm ơn!";
-
-    return `https://zalo.me/0976719995?text=${encodeURIComponent(message)}`;
+      "Nhờ chuyên viên hỗ trợ tư vấn giúp tôi. Cảm ơn!"
+    );
   };
+
+  const handleZaloConsult = async (e, product) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+
+    try {
+      await navigator.clipboard.writeText(
+        getZaloConsultMessage(product)
+      );
+    } catch (error) {
+      console.warn("Không thể tự động sao chép nội dung:", error);
+    }
+
+    // Mở Zalo trong chính tab hiện tại, tránh tạo nhiều tab
+    window.location.assign("https://zalo.me/0976719995");
+  };
+
 
   return (
     <section
@@ -213,11 +231,9 @@ export default function ProductsSection({
                         </>
                       ) : (
                         <a
-                          href={getZaloConsultUrl(item)}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href="https://zalo.me/0976719995"
                           className={styles.consultBadge}
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => handleZaloConsult(e, item)}
                           aria-label={`Tư vấn sản phẩm ${item.name} qua Zalo`}
                         >
                           <svg
