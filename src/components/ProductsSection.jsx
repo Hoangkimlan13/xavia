@@ -183,7 +183,7 @@ export default function ProductsSection({
               <Link href={viewAllHref} className={styles.viewAllBtn}>
                 <span>
                   {hasMoreProducts
-                    ? `Xem tất cả (${totalCount})`
+                    ? `Xem tất cả (${totalCount} sản phẩm)`
                     : "Xem tất cả sản phẩm"}
                 </span>
                 <span aria-hidden="true">→</span>
