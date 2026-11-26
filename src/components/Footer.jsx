@@ -12,20 +12,20 @@ const PHONE_DISPLAY = "0976 719 995";
 const LOGO_SRC = "/images/logo-xavia.png";
 
 const QUICK_LINKS = [
-  { label: "Trang chủ", href: "#top" },
-  { label: "Giới thiệu", href: "#about" },
-  { label: "Dịch vụ", href: "#services" },
-  { label: "Kết quả", href: "#results" },
-  { label: "Sản phẩm", href: "#products" },
-  { label: "Địa chỉ", href: "#location" },
-  { label: "CEO Hương RuBi", href: "#ceo" },
+  { label: "Trang chủ", href: "/" },
+  { label: "Giới thiệu", href: "/#about" },
+  { label: "Dịch vụ", href: "/#services" },
+  { label: "Kết quả", href: "/#results" },
+  { label: "Sản phẩm", href: "/#products" }, 
+  { label: "Địa chỉ", href: "/#location" },
+  { label: "CEO Hương RuBi", href: "/#ceo" },
 ];
 
 const SERVICE_LINKS = [
-  { label: "Phục hồi da nhạy cảm", href: "#services" },
-  { label: "Chăm sóc da mụn 1:1", href: "#services" },
-  { label: "Nâng cơ trẻ hóa", href: "#services" },
-  { label: "Thư giãn cơ mặt", href: "#services" },
+  { label: "Phục hồi da nhạy cảm", href: "/#services" },
+  { label: "Chăm sóc da mụn 1:1", href: "/#services" },
+  { label: "Nâng cơ trẻ hóa", href: "/#services" },
+  { label: "Thư giãn cơ mặt", href: "/#services" },
 ];
 
 const SOCIAL_CHANNELS = [

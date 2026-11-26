@@ -1,119 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./ProductsSection.module.css";
 import ProductDetailModal from "./Products/ProductDetailModal";
-
-const DEFAULT_PRODUCTS = [
-  {
-    id: "prod-recovery-serum",
-    badge: "Bán chạy",
-    discountTag: "Sale 20%",
-    savingsLabel: "Tiết kiệm 250.000đ",
-    name: "Tinh chất phục hồi chuyên sâu",
-    subtitle: "Làm dịu da, củng cố hàng rào ẩm mềm mượt",
-    originalPriceLabel: "1.250.000đ",
-    salePriceLabel: "1.000.000đ",
-    priceLabel: "1.000.000đ",
-    volume: "30ml",
-    texture: "Tinh chất lỏng thấm nhanh",
-    idealFor:
-      "Người có làn da đang nhạy cảm, mới làm liệu trình hoặc cần phục hồi nền da yếu.",
-    skinTypes: ["Da nhạy cảm", "Da yếu sau treatment", "Da khô thiếu ẩm"],
-    highlights: [
-      "Hỗ trợ làm dịu nhanh cảm giác châm chích, căng rít trên bề mặt da",
-      "Củng cố hàng rào ẩm giúp da giữ nước và khỏe vững hơn mỗi ngày",
-      "Dễ kết hợp trong chu trình chăm sóc tại nhà theo hướng dẫn 1:1",
-    ],
-    usage:
-      "Dùng ngày 2 lần sáng và tối sau bước làm sạch/cân bằng da, lấy 2–3 giọt vỗ nhẹ trước bước khóa ẩm.",
-    note: "Thích hợp dùng duy trì sau các buổi phục hồi tại spa. Kết quả tùy cơ địa từng người.",
-    image: "/images/products/recovery-serum.webp",
-    href: "/products/tinh-chat-phuc-hoi-chuyen-sau",
-  },
-  {
-    id: "prod-barrier-cream",
-    badge: "Cấp ẩm sâu",
-    discountTag: "Sale 15%",
-    savingsLabel: "Tiết kiệm 177.000đ",
-    name: "Kem dưỡng khóa ẩm đàn hồi",
-    subtitle: "Nuôi dưỡng da căng mịn, giảm khô căng suốt ngày",
-    originalPriceLabel: "1.180.000đ",
-    salePriceLabel: "1.003.000đ",
-    priceLabel: "1.003.000đ",
-    volume: "50ml",
-    texture: "Kem mềm mướt, không bết nặng",
-    idealFor:
-      "Khách hàng có da khô, da thiếu đàn hồi hoặc ngồi máy lạnh thường xuyên.",
-    skinTypes: ["Da khô", "Da thiếu ẩm", "Da cần cải thiện đàn hồi"],
-    highlights: [
-      "Hỗ trợ cân bằng dầu – nước và khóa ẩm giúp bề mặt da mềm mại",
-      "Giúp da trông căng mịn, giảm cảm giác khô sần vào cuối ngày",
-      "Tạo lớp màng bảo vệ êm ái trước khi đi ngủ hoặc bước chống nắng ban ngày",
-    ],
-    usage:
-      "Lấy lượng vừa đủ thoa đều khắp mặt và cổ ở bước cuối của chu trình dưỡng da sáng/tối.",
-    note: "Phù hợp cho mọi nền da cần cấp ẩm và duy trì độ mềm mại ổn định.",
-    image: "/images/products/barrier-cream.webp",
-    href: "/products/kem-duong-khoa-am-dan-hoi",
-  },
-  {
-    id: "prod-bright-essence",
-    badge: "Sáng đều màu",
-    discountTag: "Sale 18%",
-    savingsLabel: "Tiết kiệm 250.000đ",
-    name: "Dưỡng chất làm sáng đều màu",
-    subtitle: "Hỗ trợ làm mờ đốm sạm, cho nền da rạng rỡ",
-    originalPriceLabel: "1.390.000đ",
-    salePriceLabel: "1.140.000đ",
-    priceLabel: "1.140.000đ",
-    volume: "30ml",
-    texture: "Dưỡng chất êm dịu, thấm mịn",
-    idealFor:
-      "Người có nền da kém tươi tắn, da không đều màu hoặc vùng sạm sau mụn cần chăm sóc dịu nhẹ.",
-    skinTypes: ["Da không đều màu", "Da xỉn màu", "Da sau mụn cần làm sáng"],
-    highlights: [
-      "Hỗ trợ cải thiện độ sáng trong và sự đều màu của bề mặt da",
-      "Ưu tiên độ êm ái để không gây khô căng hay kích ứng nền da",
-      "Giúp làn da trông rạng rỡ, tươi tắn hơn theo từng tuần sử dụng",
-    ],
-    usage:
-      "Thoa sau bước làm sạch và cân bằng da vào buổi sáng hoặc tối, luôn kết hợp chống nắng ban ngày.",
-    note: "Nên dùng đều đặn theo tư vấn chuyên viên để đạt độ đồng đều tối ưu.",
-    image: "/images/products/radiance-essence.webp",
-    href: "/products/duong-chat-lam-sang-deu-mau",
-  },
-  {
-    id: "prod-shield-sunscreen",
-    badge: "Bảo vệ mỗi ngày",
-    discountTag: "Sale 15%",
-    savingsLabel: "Tiết kiệm 133.500đ",
-    name: "Kem chống nắng bảo vệ da",
-    subtitle: "Chống nắng phổ rộng, mỏng nhẹ thoáng mịn",
-    originalPriceLabel: "890.000đ",
-    salePriceLabel: "756.500đ",
-    priceLabel: "756.500đ",
-    volume: "50ml",
-    texture: "Mỏng nhẹ, ráo mịn tự nhiên",
-    idealFor:
-      "Mọi khách hàng cần bảo vệ da hằng ngày, đặc biệt người đang phục hồi da, trị mụn hoặc nâng cơ trẻ hóa.",
-    skinTypes: ["Mọi loại da", "Da nhạy cảm", "Da sau liệu trình"],
-    highlights: [
-      "Hỗ trợ bảo vệ da trước tác động từ tia UV và môi trường hằng ngày",
-      "Kết cấu mỏng nhẹ, thoáng mịn, không gây bí nặng trên da",
-      "Giúp giữ vững thành quả chăm sóc và phục hồi da tại nhà",
-    ],
-    usage:
-      "Thoa lượng đủ trước khi ra ngoài 15–20 phút mỗi sáng và dặm lại khi hoạt động ngoài trời lâu.",
-    note: "Bước bắt buộc trong routine ban ngày để duy trì nền da khỏe và sáng đều.",
-    image: "/images/products/mineral-uv-veil.webp",
-    href: "/products/kem-chong-nang-bao-ve-da",
-  },
-];
+import { DEFAULT_PRODUCTS } from "@/data/products";
 
 export default function ProductsSection({
   products = DEFAULT_PRODUCTS,
+  featuredLimit = 6,
   viewAllHref = "/products",
   onAddToCart,
   onSelectProduct = undefined,
@@ -123,8 +19,17 @@ export default function ProductsSection({
   const [addedId, setAddedId] = useState(null);
   const [modalProduct, setModalProduct] = useState(null);
 
-  const productList =
-    products && products.length > 0 ? products : DEFAULT_PRODUCTS;
+  const productList = useMemo(() => {
+    const base = products && products.length > 0 ? products : DEFAULT_PRODUCTS;
+    if (typeof featuredLimit === "number" && featuredLimit > 0) {
+      return base.slice(0, featuredLimit);
+    }
+    return base;
+  }, [products, featuredLimit]);
+
+  const totalCount =
+    products && products.length > 0 ? products.length : DEFAULT_PRODUCTS.length;
+  const hasMoreProducts = totalCount > productList.length;
 
   useEffect(() => {
     const el = trackRef.current;
@@ -177,11 +82,23 @@ export default function ProductsSection({
   };
 
   const handleCardClick = (e, product) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setModalProduct(product);
+
     if (onSelectProduct) {
       onSelectProduct(product);
     }
+  };
+
+  const getZaloConsultUrl = (product) => {
+    const message =
+      `Xin chào XAVIA SPA! Tôi muốn được tư vấn về sản phẩm ${product.name}. ` +
+      "Nhờ chuyên viên hỗ trợ tư vấn giúp tôi. Cảm ơn!";
+
+    return `https://zalo.me/0976719995?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -214,7 +131,7 @@ export default function ProductsSection({
           <div className={styles.headingGroup}>
             <span className={styles.eyebrow}>
               <span className={styles.eyebrowLine} aria-hidden="true" />
-              SẢN PHẨM MỸ PHẨM • ƯU ĐÃI ĐỘC QUYỀN
+              SẢN PHẨM MỸ PHẨM • TƯ VẤN CÁ NHÂN HÓA
             </span>
 
             <h2 id="products-heading" className={styles.heading}>
@@ -223,16 +140,27 @@ export default function ProductsSection({
             </h2>
 
             <p className={styles.subHeading}>
-              Các dòng dưỡng chất dịu nhẹ giúp làn da duy trì độ ẩm, độ sáng và sự rạng rỡ
+              Các dòng dưỡng chất dịu nhẹ được tư vấn phù hợp với từng nền da và liệu trình
             </p>
           </div>
 
+          {viewAllHref && (
+            <div className={styles.viewAllWrap}>
+              <Link href={viewAllHref} className={styles.viewAllBtn}>
+                <span>
+                  {hasMoreProducts
+                    ? `Xem tất cả (${totalCount})`
+                    : "Xem tất cả sản phẩm"}
+                </span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          )}
         </div>
 
-        {/* DANH SÁCH SẢN PHẨM */}
+        {/* DANH SÁCH SẢN PHẨM NỔI BẬT */}
         <div ref={trackRef} className={styles.cardsTrack}>
           {productList.map((item) => {
-            const isAdded = addedId === item.id;
             const hasSale = Boolean(
               item.salePriceLabel && item.originalPriceLabel
             );
@@ -284,18 +212,48 @@ export default function ProductsSection({
                           </span>
                         </>
                       ) : (
-                        <span className={styles.salePrice}>{item.priceLabel}</span>
+                        <a
+                          href={getZaloConsultUrl(item)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.consultBadge}
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label={`Tư vấn sản phẩm ${item.name} qua Zalo`}
+                        >
+                          <svg
+                            className={styles.messageIcon}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M22 2L11 13"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M22 2L15 22L11 13L2 9L22 2Z"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+
+                          <span>{item.priceLabel || "Tư vấn ngay"}</span>
+                        </a>
                       )}
                     </div>
 
                     <button
                       type="button"
-                      onClick={(e) => handleAdd(e, item, 1)}
-                      className={`${styles.addBtn} ${
-                        isAdded ? styles.addBtnAdded : ""
-                      }`}
+                      onClick={(e) => handleCardClick(e, item)}
+                      className={styles.addBtn}
                     >
-                      {isAdded ? "Đã thêm ✓" : "Thêm giỏ"}
+                      Xem chi tiết
                     </button>
                   </div>
                 </div>

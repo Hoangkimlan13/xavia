@@ -31,6 +31,9 @@ export default function AboutSection({
   moreHref = "#services",
   images = DEFAULT_IMAGES,
 }) {
+  const sectionRef = useRef(null);
+  const [revealed, setRevealed] = useState(false);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
   const [paused, setPaused] = useState(false);
@@ -47,6 +50,41 @@ export default function AboutSection({
     setPrevIndex(activeIndex);
     setActiveIndex(normalized);
   };
+
+  // Kích hoạt animation chữ khi section đi vào khung nhìn
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setRevealed(true);
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      setRevealed(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -32px 0px",
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (paused || slideCount <= 1 || storyOpen) return;
@@ -89,66 +127,78 @@ export default function AboutSection({
   return (
     <>
       <section
+        ref={sectionRef}
         id="about"
-        className={styles.aboutSection}
+        className={`${styles.aboutSection} ${revealed ? styles.isRevealed : ""}`}
         aria-labelledby="about-heading"
       >
         <div className={styles.container}>
           <div className={styles.grid}>
             {/* CỘT NỘI DUNG TÓM TẮT (BÊN TRÁI) */}
             <div className={styles.contentCol}>
-              <span className={styles.eyebrow}>
-                <span className={styles.eyebrowLine} aria-hidden="true" />
-                Về XAVIA SPA
-              </span>
-
-              <h2 id="about-heading" className={styles.heading}>
-                Chăm đúng từ gốc,{" "}
-                <em>đẹp bền theo thời gian</em>
-              </h2>
-
-              <p className={styles.description}>
-                Phục hồi nền da, quản lý mụn &amp; nâng cơ HIFU, RF — cá nhân
-                hóa, theo dõi 1:1.
-              </p>
-
-              <div className={styles.statsRow}>
-                {HIGHLIGHTS.map((item) => (
-                  <div key={item.label} className={styles.statItem}>
-                    <strong className={styles.statValue}>{item.value}</strong>
-                    <span className={styles.statLabel}>{item.label}</span>
-                  </div>
-                ))}
+              <div className={styles.textMask} style={{ "--d": "0ms" }}>
+                <span className={styles.eyebrow}>
+                  <span className={styles.eyebrowLine} aria-hidden="true" />
+                  Về XAVIA SPA
+                </span>
               </div>
 
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  onClick={() => setStoryOpen(true)}
-                  className={styles.btnGold}
-                >
-                  Xem chi tiết <span aria-hidden="true">→</span>
-                </button>
+              <div className={styles.textMask} style={{ "--d": "80ms" }}>
+                <h2 id="about-heading" className={styles.heading}>
+                  Chăm đúng từ gốc,{" "}
+                  <em>đẹp bền theo thời gian</em>
+                </h2>
+              </div>
 
-                {onOpenBooking ? (
+              <div className={styles.textFade} style={{ "--d": "160ms" }}>
+                <p className={styles.description}>
+                  Phục hồi nền da, quản lý mụn &amp; nâng cơ HIFU, RF — cá nhân
+                  hóa, theo dõi 1:1.
+                </p>
+              </div>
+
+              <div className={styles.textFade} style={{ "--d": "230ms" }}>
+                <div className={styles.statsRow}>
+                  {HIGHLIGHTS.map((item) => (
+                    <div key={item.label} className={styles.statItem}>
+                      <strong className={styles.statValue}>{item.value}</strong>
+                      <span className={styles.statLabel}>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.textFade} style={{ "--d": "300ms" }}>
+                <div className={styles.actions}>
                   <button
                     type="button"
-                    onClick={onOpenBooking}
-                    className={styles.btnOutline}
+                    onClick={() => setStoryOpen(true)}
+                    className={styles.btnGold}
                   >
-                    Đặt lịch tư vấn
+                    Xem chi tiết <span aria-hidden="true">→</span>
                   </button>
-                ) : (
-                  <a href="#booking" className={styles.btnOutline}>
-                    Đặt lịch tư vấn
-                  </a>
-                )}
+
+                  {onOpenBooking ? (
+                    <button
+                      type="button"
+                      onClick={onOpenBooking}
+                      className={styles.btnOutline}
+                    >
+                      Đặt lịch tư vấn
+                    </button>
+                  ) : (
+                    <a href="#booking" className={styles.btnOutline}>
+                      Đặt lịch tư vấn
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* CỘT HÌNH ẢNH KHÔNG GIAN SPA (BÊN PHẢI) */}
             <div
-              className={styles.mediaCol}
+              className={`${styles.mediaCol} ${styles.textFade}`}
+              style={{ "--d": "140ms" }}
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
               onTouchStart={handleTouchStart}

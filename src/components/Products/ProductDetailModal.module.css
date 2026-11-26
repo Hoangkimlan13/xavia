@@ -184,13 +184,13 @@
   z-index: 2;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(8, 35, 26, 0.84);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(237, 209, 142, 0.45);
-  color: var(--gold-light);
+  background: linear-gradient(135deg, rgba(168, 108, 36, 0.92), rgba(214, 154, 66, 0.92));
+  border: 1px solid rgba(255, 236, 186, 0.55);
+  color: #fffdf8;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .pricePanel {
@@ -389,48 +389,63 @@
   border-top: 1px solid rgba(8, 35, 26, 0.1);
 }
 
-.qtyControl {
-  display: inline-flex;
-  align-items: center;
+/* Nút đóng modal thay cụm số lượng */
+.closeModalBtn {
+  min-height: 42px;
+  padding: 10px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(8, 35, 26, 0.18);
+  border: 1px solid rgba(8, 35, 26, 0.2);
   background: var(--ivory);
-  padding: 2px;
+  color: var(--emerald);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
   flex-shrink: 0;
-}
-
-.qtyBtn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: var(--emerald);
-  font-size: 15px;
-  font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.qtyValue {
-  min-width: 24px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--emerald);
+.closeModalBtn:hover {
+  background: rgba(8, 35, 26, 0.08);
+  border-color: rgba(8, 35, 26, 0.35);
 }
 
+.closeModalBtn:active {
+  transform: scale(0.98);
+}
+
+/* Nút tư vấn ngay */
 .primaryBtn {
   flex: 1;
   min-height: 42px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 999px;
   border: 1px solid rgba(198, 164, 91, 0.7);
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
   color: var(--emerald);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.messageIcon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  flex-shrink: 0;
+  color: var(--emerald);
+  transition: transform 0.2s ease;
 }
 
 .primaryBtn:hover {
@@ -438,10 +453,8 @@
   box-shadow: 0 8px 18px rgba(198, 164, 91, 0.35);
 }
 
-.primaryBtnSuccess {
-  background: var(--emerald);
-  border-color: var(--emerald);
-  color: var(--gold-light);
+.primaryBtn:hover .messageIcon {
+  transform: translate(2px, -2px);
 }
 
 @media (min-width: 768px) {
@@ -482,5 +495,354 @@
 
   .footer {
     padding: 14px 24px 18px;
+  }
+}
+
+
+/* =========================================
+   XAVIA SPA — PREMIUM IMAGE LIGHTBOX
+========================================= */
+
+/* Image zoom hint */
+
+.imageBox {
+  cursor: zoom-in;
+}
+
+.imageZoomHint {
+  position: absolute;
+  z-index: 3;
+  right: 12px;
+  bottom: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 13px;
+  border-radius: 100px;
+
+  background: rgba(8, 35, 26, 0.82);
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  pointer-events: none;
+}
+
+.imageZoomHint span {
+  font-size: 19px;
+  line-height: 1;
+}
+
+@media (hover: hover) {
+  .imageBox .imageZoomHint {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: 0.25s ease;
+  }
+
+  .imageBox:hover .imageZoomHint,
+  .imageBox:focus-visible .imageZoomHint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fullscreen overlay */
+
+.imageLightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    max(20px, env(safe-area-inset-top))
+    20px
+    max(18px, env(safe-area-inset-bottom));
+
+  background: rgba(7, 12, 10, 0.97);
+
+  color: #fff;
+
+  animation: lightboxFade 0.25s ease;
+
+  overflow: hidden;
+}
+
+@keyframes lightboxFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Header */
+
+.lightboxHeader {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.lightboxInfo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lightboxEyebrow {
+  color: #d3b678;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.lightboxTitle {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lightboxClose {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+
+  font-size: 17px;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.lightboxClose:hover {
+  background: #c6a45b;
+  border-color: #c6a45b;
+  color: #08231a;
+}
+
+/* Image stage */
+
+.lightboxStage {
+  position: relative;
+
+  width: 100%;
+  max-width: 1200px;
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+
+  cursor: grab;
+}
+
+.lightboxStage:active {
+  cursor: grabbing;
+}
+
+.lightboxImageWrap {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transition: transform 0.18s ease-out;
+  transform-origin: center center;
+
+  pointer-events: none;
+}
+
+.lightboxImage {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Zoom controls */
+
+.lightboxControls {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 100px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.zoomButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.zoomButtons button {
+  width: 37px;
+  height: 37px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+
+  font-size: 22px;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.zoomButtons button:hover:not(:disabled) {
+  background: #c6a45b;
+  color: #08231a;
+}
+
+.zoomButtons button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.zoomValue {
+  min-width: 45px;
+  color: #f0d9a7;
+
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.zoomReset {
+  padding: 8px 13px;
+
+  border: 0;
+  border-radius: 100px;
+
+  background: transparent;
+  color: #e8d7b5;
+
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.zoomReset:hover {
+  color: #fff;
+}
+
+/* Instruction */
+
+.lightboxHint {
+  margin: 13px 0 0;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .imageLightbox {
+    padding:
+      max(15px, env(safe-area-inset-top))
+      12px
+      max(15px, env(safe-area-inset-bottom));
+  }
+
+  .lightboxHeader {
+    gap: 10px;
+  }
+
+  .lightboxClose {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightboxTitle {
+    font-size: 12px;
+  }
+
+  .lightboxEyebrow {
+    font-size: 8px;
+  }
+
+  .lightboxControls {
+    gap: 9px;
+    padding: 8px 11px;
+  }
+
+  .zoomButtons {
+    gap: 11px;
+  }
+
+  .zoomButtons button {
+    width: 39px;
+    height: 39px;
+  }
+
+  .lightboxHint {
+    max-width: 300px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageLightbox,
+  .lightboxImageWrap {
+    animation: none;
+    transition: none;
   }
 }

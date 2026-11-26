@@ -1,0 +1,47 @@
+.reveal {
+  --reveal-delay: 0ms;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay);
+  will-change: transform, opacity;
+}
+
+.reveal.shown {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Kiểu trượt từ mặt nạ ẩn — rất hợp heading & eyebrow sang trọng */
+.reveal.masked {
+  opacity: 1;
+  transform: none;
+  overflow: hidden;
+  padding-bottom: 2px;
+}
+
+.reveal.masked .inner {
+  display: block;
+  transform: translate3d(0, 105%, 0);
+  opacity: 0.01;
+  transition:
+    transform 0.78s cubic-bezier(0.19, 1, 0.22, 1) var(--reveal-delay),
+    opacity 0.5s ease var(--reveal-delay);
+  will-change: transform;
+}
+
+.reveal.masked.shown .inner {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.masked .inner {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}

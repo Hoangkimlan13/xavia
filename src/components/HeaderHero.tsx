@@ -1,27 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type {
-  CSSProperties,
-  MouseEvent as ReactMouseEvent,
-} from "react";
 import Image from "next/image";
+import SiteHeader, { BOOKING_URL } from "./SiteHeader";
 import styles from "./HeaderHero.module.css";
 
-const BOOKING_URL = "https://xaviaspa.salonhero.vn/dat-lich";
 const ZALO_URL = "https://zalo.me/0976719995";
 const PHONE_TEL = "tel:0976719995";
 const PHONE_DISPLAY = "0976 719 995";
-
-const NAV_ITEMS = [
-  { label: "Trang chủ", href: "#top" },
-  { label: "Giới thiệu", href: "#about" },
-  { label: "Dịch vụ", href: "#services" },
-  { label: "Kết quả", href: "#results" },
-  { label: "Sản phẩm", href: "#products" },
-  { label: "Địa chỉ", href: "#location" },
-  { label: "CEO", href: "#ceo" },
-];
 
 const MOBILE_SKIN_NEEDS = [
   {
@@ -131,11 +117,7 @@ export default function HeaderHero({
   onOpenCart,
   onOpenMenu,
 }: HeaderHeroProps) {
-  const [scrolled, setScrolled] = useState(false);
-  const [internalMenuOpen, setInternalMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("#top");
   const [floatingVisible, setFloatingVisible] = useState(true);
-
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -143,8 +125,6 @@ export default function HeaderHero({
 
     const onScroll = () => {
       const currentY = window.scrollY;
-      setScrolled(currentY > 24);
-
       const delta = currentY - lastScrollY.current;
       const isNearTop = currentY < 140;
       const isNearBottom =
@@ -154,10 +134,8 @@ export default function HeaderHero({
       if (isNearTop || isNearBottom) {
         setFloatingVisible(true);
       } else if (delta > 10) {
-        // Đang cuộn xuống đọc nội dung -> ẩn nhẹ để không vướng mắt
         setFloatingVisible(false);
       } else if (delta < -6) {
-        // Đang cuộn ngược lên -> hiện lại mượt mà
         setFloatingVisible(true);
       }
 
@@ -169,264 +147,18 @@ export default function HeaderHero({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // =====================================================
-  // SCROLL SPY: TÍNH TOÁN VỊ TRÍ CUỘN
-  // =====================================================
-  useEffect(() => {
-    const handleScrollSpy = () => {
-      const activationLine = window.scrollY + 180;
-
-      const sections = NAV_ITEMS
-        .filter((item) => item.href !== "#top")
-        .flatMap((item) => {
-          const element = document.getElementById(item.href.slice(1));
-          if (!element) return [];
-
-          return [
-            {
-              href: item.href,
-              top: element.getBoundingClientRect().top + window.scrollY,
-            },
-          ];
-        })
-        .sort((a, b) => a.top - b.top);
-
-      let currentSection = "#top";
-
-      for (const section of sections) {
-        if (activationLine >= section.top) {
-          currentSection = section.href;
-        } else {
-          break;
-        }
-      }
-
-      const isAtBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 50;
-
-      if (isAtBottom && sections.length > 0) {
-        currentSection = sections[sections.length - 1]?.href ?? currentSection;
-      }
-
-      setActiveSection((prev) =>
-        prev === currentSection ? prev : currentSection
-      );
-    };
-
-    handleScrollSpy();
-    window.addEventListener("scroll", handleScrollSpy, { passive: true });
-    window.addEventListener("resize", handleScrollSpy);
-
-    return () => {
-      window.removeEventListener("scroll", handleScrollSpy);
-      window.removeEventListener("resize", handleScrollSpy);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!internalMenuOpen) return;
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setInternalMenuOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [internalMenuOpen]);
-
-  const handleMenuToggle = () => {
-    if (onOpenMenu) {
-      onOpenMenu();
-    } else {
-      setInternalMenuOpen((prev) => !prev);
-    }
-  };
-
-  const handleBookingClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
-    if (onOpenBooking) {
-      e.preventDefault();
-      setInternalMenuOpen(false);
-      onOpenBooking();
-    } else {
-      setInternalMenuOpen(false);
-    }
-  };
-
   const isExternalBooking = /^https?:\/\//i.test(bookingHref);
 
   return (
     <div className={styles.wrapper} id="top">
-      {/* ================= HEADER ================= */}
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
-        <a href="#top" className={styles.logo} aria-label="XAVIA SPA - Trang chủ">
-          <Image
-            src="/images/logo-xavia.png"
-            alt="XAVIA SPA"
-            width={168}
-            height={48}
-            priority
-            className={styles.logoImg}
-            sizes="(max-width: 480px) 126px, (max-width: 1023px) 150px, 168px"
-          />
-        </a>
-
-        <nav className={styles.desktopNav} aria-label="Điều hướng chính">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={activeSection === item.href ? styles.activeNav : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* ACTIONS — TÔNG VÀNG SÂM PANH */}
-        <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={onOpenCart}
-            className={styles.roundBtn}
-            aria-label={`Giỏ hàng${cartCount > 0 ? `, ${cartCount} sản phẩm` : ""}`}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6" />
-              <circle cx="10" cy="20" r="1" />
-              <circle cx="19" cy="20" r="1" />
-            </svg>
-            {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-          </button>
-
-          {onOpenBooking ? (
-            <button
-              type="button"
-              onClick={onOpenBooking}
-              className={styles.ctaHeader}
-            >
-              Đặt lịch tư vấn <span aria-hidden="true">→</span>
-            </button>
-          ) : (
-            <a
-              href={bookingHref}
-              {...(isExternalBooking
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className={styles.ctaHeader}
-            >
-              Đặt lịch tư vấn <span aria-hidden="true">→</span>
-            </a>
-          )}
-
-          <button
-            type="button"
-            onClick={handleMenuToggle}
-            className={`${styles.menuBtn} ${internalMenuOpen ? styles.menuBtnOpen : ""}`}
-            aria-label={internalMenuOpen ? "Đóng menu" : "Mở menu"}
-            aria-expanded={internalMenuOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </header>
-
-      {/* ================= MOBILE / TABLET NAV DRAWER ================= */}
-      {!onOpenMenu && (
-        <div
-          className={`${styles.drawerBackdrop} ${internalMenuOpen ? styles.drawerOpen : ""}`}
-          onClick={() => setInternalMenuOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-hidden={!internalMenuOpen}
-          aria-label="Menu điều hướng"
-        >
-          <aside
-            className={styles.drawerPanel}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.drawerGlow} aria-hidden="true" />
-
-            <div className={styles.drawerTop}>
-              <Image
-                src="/images/logo-xavia.png"
-                alt="XAVIA SPA"
-                width={132}
-                height={38}
-                className={styles.drawerLogo}
-              />
-              <button
-                type="button"
-                className={styles.drawerClose}
-                onClick={() => setInternalMenuOpen(false)}
-                aria-label="Đóng menu"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="16"
-                  height="16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <nav className={styles.drawerNav}>
-              {NAV_ITEMS.map((item, idx) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  style={{ "--item-index": idx } as CSSProperties}
-                  className={activeSection === item.href ? styles.drawerActive : undefined}
-                  onClick={() => setInternalMenuOpen(false)}
-                >
-                  <span className={styles.drawerLinkText}>{item.label}</span>
-                  <span className={styles.drawerArrow} aria-hidden="true">
-                    →
-                  </span>
-                </a>
-              ))}
-            </nav>
-
-            <div className={styles.drawerFooter}>
-              <p className={styles.drawerTagline}>THE SCIENCE OF BEAUTY</p>
-              <a
-                href={bookingHref}
-                {...(isExternalBooking && !onOpenBooking
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className={styles.btnGold}
-                onClick={handleBookingClick}
-              >
-                Đặt lịch tư vấn <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </aside>
-        </div>
-      )}
+      <SiteHeader
+        cartCount={cartCount}
+        bookingHref={bookingHref}
+        useAnchorLinks
+        onOpenBooking={onOpenBooking}
+        onOpenCart={onOpenCart}
+        onOpenMenu={onOpenMenu}
+      />
 
       {/* ================= HERO ================= */}
       <section className={styles.hero}>
@@ -519,9 +251,7 @@ export default function HeaderHero({
         {/* FLOATING CONTACTS — ẨN KHI CUỘN XUỐNG, HIỆN MƯỢT KHI CUỘN LÊN */}
         <aside
           className={`${styles.floatingContacts} ${
-            floatingVisible && !internalMenuOpen
-              ? styles.floatingVisible
-              : styles.floatingHidden
+            floatingVisible ? styles.floatingVisible : styles.floatingHidden
           }`}
           aria-label="Liên hệ nhanh"
         >

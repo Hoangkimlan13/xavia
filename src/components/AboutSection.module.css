@@ -919,3 +919,49 @@
     animation: none !important;
   }
 }
+
+/* =====================================================
+   2026-2027 EDITORIAL TEXT & SECTION REVEAL
+===================================================== */
+.textMask {
+  overflow: hidden;
+  padding-bottom: 2px;
+}
+
+.textMask > * {
+  transform: translate3d(0, 108%, 0);
+  opacity: 0.01;
+  transition:
+    transform 0.78s cubic-bezier(0.19, 1, 0.22, 1) var(--d, 0ms),
+    opacity 0.52s ease var(--d, 0ms);
+  will-change: transform;
+}
+
+.isRevealed .textMask > * {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.textFade {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+  will-change: transform, opacity;
+}
+
+.isRevealed .textFade {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textMask > *,
+  .textFade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
