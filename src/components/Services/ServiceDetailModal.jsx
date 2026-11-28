@@ -414,7 +414,7 @@ export default function ServiceDetailModal({
           )}
 
           <p className={styles.disclaimer}>
-            Giá niêm yết tính bằng đồng. Kết quả tùy thuộc cơ địa và tình trạng da.
+            Kết quả tùy thuộc cơ địa và tình trạng da.
           </p>
         </div>
 

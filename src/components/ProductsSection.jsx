@@ -12,7 +12,7 @@ import { DEFAULT_PRODUCTS } from "@/data/products";
 
 export default function ProductsSection({
   products = DEFAULT_PRODUCTS,
-  featuredLimit = 6,
+  featuredLimit = 8,
   viewAllHref = "/products",
   onAddToCart,
   onSelectProduct = undefined,

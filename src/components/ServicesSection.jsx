@@ -12,7 +12,7 @@ const DEFAULT_SERVICES = [
     subtitle:
       "Hỗ trợ cân bằng hệ vi sinh trên da và phục hồi hàng rào bảo vệ da.",
     duration: "90 phút",
-    price: "1.800.000đ",
+    price: "Tư vấn để trải nghiệm",
     experienceLabel: "Êm dịu, phục hồi nền da",
     image: "/images/services/rf.webp",
     beforeImage: "/images/results/hifu-before.webp",
@@ -58,7 +58,7 @@ const DEFAULT_SERVICES = [
     subtitle:
       "Liệu trình nâng cơ không xâm lấn, hướng đến làn da săn chắc và đường nét gương mặt gọn hơn.",
     duration: "90 phút",
-    price: "Giá theo vùng",
+    price: "Tư vấn để trải nghiệm",
     experienceLabel: "Nâng cơ không xâm lấn",
     image: "/images/services/hifu.webp",
     beforeImage: "/images/results/hifu-before.webp",
@@ -104,7 +104,7 @@ const DEFAULT_SERVICES = [
     subtitle:
       "Thư giãn các nhóm cơ vùng trán, mắt, má và hàm, hỗ trợ giảm căng cứng, giúp gương mặt hồng hào và hài hòa hơn.",
     duration: "",
-    price: "980.000đ",
+    price: "Tư vấn để trải nghiệm",
     experienceLabel: "Thư giãn cơ mặt, sáng thần sắc",
     image: "/images/services/brightening.webp",
     beforeImage: "/images/results/acne-before.webp",
@@ -150,7 +150,7 @@ const DEFAULT_SERVICES = [
     subtitle:
       "Chăm sóc da mụn, hỗ trợ làm dịu da và kiểm soát bã nhờn.",
     duration: "60 phút",
-    price: "550.000đ",
+    price: "Tư vấn để trải nghiệm",
     experienceLabel: "Làm dịu da, thông thoáng",
     image: "/images/services/acne.webp",
     beforeImage: "/images/results/acne-before.webp",
@@ -363,7 +363,7 @@ export default function ServicesSection({
         )}
 
         <p className={styles.disclaimer}>
-          Giá niêm yết tính bằng đồng. Kết quả tùy thuộc cơ địa và tình trạng da.
+          Mỗi tình trạng da phù hợp một hướng chăm sóc khác nhau — liên hệ tư vấn trước để chọn liệu trình đúng với bạn.
         </p>
       </div>
 

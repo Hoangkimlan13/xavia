@@ -516,7 +516,7 @@ export default function ProductDetailModal({ product, onClose }) {
           )}
 
           <p className={styles.disclaimer}>
-            Giá niêm yết tính bằng đồng. Phù hợp phối hợp cùng phác đồ cá nhân
+            Phù hợp phối hợp cùng phác đồ cá nhân
             hóa và theo dõi 1:1 tại XAVIA SPA.
           </p>
         </div>

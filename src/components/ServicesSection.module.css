@@ -300,9 +300,13 @@
 }
 
 .pricePill {
-  background: rgba(237, 209, 142, 0.92);
-  color: var(--emerald-dark);
-  font-weight: 700;
+  background: rgba(237, 209, 142, 0.16);
+  border: 1px solid rgba(237, 209, 142, 0.45);
+  color: var(--gold-light);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .cardBottomRow {

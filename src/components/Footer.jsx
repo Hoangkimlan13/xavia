@@ -18,7 +18,7 @@ const QUICK_LINKS = [
   { label: "Kết quả", href: "/#results" },
   { label: "Sản phẩm", href: "/#products" }, 
   { label: "Địa chỉ", href: "/#location" },
-  { label: "CEO Hương RuBi", href: "/#ceo" },
+  { label: "CEO XAVIA SPA", href: "/#ceo" },
 ];
 
 const SERVICE_LINKS = [
@@ -101,7 +101,7 @@ export default function Footer() {
               </span>
               <p className={styles.brandBio}>
                 Chăm sóc làn da khoa học, êm ái và cá nhân hóa dưới sự đồng
-                hành của CEO Hương RuBi.
+                hành của CEO XAVIA SPA.
               </p>
             </div>
           </div>

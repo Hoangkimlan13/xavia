@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import HeaderHero from "@/components/HeaderHero";
-import AboutSection from "@/components/AboutSection";
+// import AboutSection from "@/components/AboutSection";
 import SkinKnowledgeSection from "@/components/SkinKnowledgeSection";
 import ServicesSection from "@/components/ServicesSection";
 import ResultsSection from "@/components/ResultsSection";
+import SpaceTechSection from "@/components/SpaceTechSection";
 import ProductsSection from "@/components/ProductsSection";
 import LocationSection from "@/components/LocationSection";
 import CeoSection from "@/components/CeoSection";
@@ -24,10 +25,11 @@ export default function HomePage() {
     <>
       <main>
         <HeaderHero cartCount={cartCount} bookingHref={BOOKING_URL} />
-        <AboutSection />
+        {/* <AboutSection /> */}
         <SkinKnowledgeSection />
         <ServicesSection />
         <ResultsSection bookingHref={BOOKING_URL} />
+        <SpaceTechSection bookingHref={BOOKING_URL} />
         <ProductsSection onAddToCart={handleAddToCart} />
         <LocationSection />
         <CeoSection bookingHref={BOOKING_URL} />

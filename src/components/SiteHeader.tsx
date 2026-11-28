@@ -15,7 +15,7 @@ export const NAV_ITEMS = [
   { label: "Kết quả", hash: "#results", pageHref: "/#results" },
   { label: "Sản phẩm", hash: "#products", pageHref: "/products" },
   { label: "Địa chỉ", hash: "#location", pageHref: "/#location" },
-  { label: "CEO Hương RuBi", hash: "#ceo", pageHref: "/#ceo" },
+  { label: "Về CEO", hash: "#ceo", pageHref: "/#ceo" },
 ];
 
 type SiteHeaderProps = {
@@ -196,6 +196,27 @@ export default function SiteHeader({
         </nav>
 
         <div className={styles.actions}>
+
+          {/* Nút tư vấn mobile */}
+          {onOpenBooking ? (
+            <button
+              type="button"
+              onClick={onOpenBooking}
+              className={styles.mobileConsultBtn}
+            >
+              Tư vấn
+            </button>
+          ) : (
+            <a
+              href={bookingHref}
+              {...(isExternalBooking
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className={styles.mobileConsultBtn}
+            >
+              Tư vấn ngay
+            </a>
+          )}
           {/* <button
             type="button"
             onClick={onOpenCart}
