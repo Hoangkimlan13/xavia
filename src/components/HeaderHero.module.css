@@ -1016,6 +1016,7 @@
 
 
 
+
 /* Desktop: ẩn nút tư vấn mobile */
 .mobileConsultBtn {
   display: none;
@@ -1026,7 +1027,13 @@
     display: none;
   }
 
+  /* TOP 0: ẩn hoàn toàn nút tư vấn */
   .mobileConsultBtn {
+    display: none;
+  }
+
+  /* SCROLLED: chỉ hiện khi header có class scrolled */
+  .scrolled .mobileConsultBtn {
     position: relative;
     isolation: isolate;
 
@@ -1037,20 +1044,18 @@
     min-height: 36px;
     padding: 0 17px;
 
-    border: 1px solid rgba(235, 207, 145, 0.48);
+    border: 1px solid rgba(198, 162, 98, 0.72);
     border-radius: 999px;
 
-    background:
-      linear-gradient(
-        135deg,
-        rgba(255, 247, 222, 0.19),
-        rgba(198, 162, 98, 0.12)
-      );
+    background: linear-gradient(
+      125deg,
+      #f5e4b9 0%,
+      #d8bd7c 48%,
+      #bd9854 100%
+    );
 
-    backdrop-filter: blur(14px) saturate(145%);
-    -webkit-backdrop-filter: blur(14px) saturate(145%);
+    color: #153b2e;
 
-    color: #fff8e9;
     font-family: inherit;
     font-size: 11px;
     font-weight: 650;
@@ -1062,67 +1067,19 @@
     cursor: pointer;
 
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.16),
-      0 3px 14px rgba(0, 0, 0, 0.10);
+      inset 0 1px 0 rgba(255, 255, 255, 0.65),
+      0 3px 12px rgba(10, 39, 29, 0.16);
+
+    animation: consultBtnAppear 0.3s ease both;
 
     transition:
       background 0.3s ease,
       border-color 0.3s ease,
-      color 0.3s ease,
       box-shadow 0.3s ease,
       transform 0.25s ease;
   }
 
-  /* Ánh sáng nhẹ trên bề mặt nút */
-  .mobileConsultBtn::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    z-index: -1;
-    border-radius: inherit;
-
-    background: linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.13),
-      transparent 48%,
-      rgba(255, 255, 255, 0.04)
-    );
-
-    pointer-events: none;
-  }
-
-  /* Trạng thái nhấn */
-  .mobileConsultBtn:active {
-    transform: scale(0.96);
-    background: rgba(198, 162, 98, 0.32);
-    border-color: rgba(255, 224, 159, 0.8);
-  }
-
-  /* Khi header chuyển sang trạng thái cuộn */
-  .scrolled .mobileConsultBtn {
-    border-color: rgba(198, 162, 98, 0.72);
-
-    background: linear-gradient(
-      125deg,
-      #f5e4b9 0%,
-      #d8bd7c 48%,
-      #bd9854 100%
-    );
-
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-
-    color: #153b2e;
-
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.65),
-      0 3px 12px rgba(10, 39, 29, 0.16);
-  }
-
-  .scrolled .mobileConsultBtn::before {
-    display: none;
-  }
-
+  /* Hiệu ứng nhấn */
   .scrolled .mobileConsultBtn:active {
     transform: scale(0.96);
     background: linear-gradient(
@@ -1139,9 +1096,23 @@
   }
 }
 
+/* Hiệu ứng xuất hiện */
+@keyframes consultBtnAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Tôn trọng cài đặt giảm chuyển động */
 @media (prefers-reduced-motion: reduce) {
-  .mobileConsultBtn {
+  .scrolled .mobileConsultBtn {
+    animation: none;
     transition: none;
   }
 }
