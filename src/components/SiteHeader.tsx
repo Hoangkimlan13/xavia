@@ -10,9 +10,9 @@ export const BOOKING_URL = "https://xaviaspa.salonhero.vn/dat-lich";
 
 export const NAV_ITEMS = [
   { label: "Trang chủ", hash: "#top", pageHref: "/" },
-  { label: "Giới thiệu", hash: "#about", pageHref: "/#about" },
   { label: "Dịch vụ", hash: "#services", pageHref: "/#services" },
   { label: "Kết quả", hash: "#results", pageHref: "/#results" },
+  { label: "Giới thiệu", hash: "#space-tech", pageHref: "/#about" },
   { label: "Sản phẩm", hash: "#products", pageHref: "/products" },
   { label: "Địa chỉ", hash: "#location", pageHref: "/#location" },
   { label: "Về CEO", hash: "#ceo", pageHref: "/#ceo" },

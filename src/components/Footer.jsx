@@ -13,9 +13,9 @@ const LOGO_SRC = "/images/logo-xavia.png";
 
 const QUICK_LINKS = [
   { label: "Trang chủ", href: "/" },
-  { label: "Giới thiệu", href: "/#about" },
   { label: "Dịch vụ", href: "/#services" },
   { label: "Kết quả", href: "/#results" },
+  { label: "Giới thiệu", href: "/#space-tech" },
   { label: "Sản phẩm", href: "/#products" }, 
   { label: "Địa chỉ", href: "/#location" },
   { label: "CEO XAVIA SPA", href: "/#ceo" },
